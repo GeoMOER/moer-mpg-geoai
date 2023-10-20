@@ -24,7 +24,7 @@
 
 # Serve on GitHub
 url: https://geomoer.github.io
-baseurl: "/geoAI/"
+baseurl: "/moer-mpg-geoai/"
 
 search: true
 ##### Title ###################################################################
