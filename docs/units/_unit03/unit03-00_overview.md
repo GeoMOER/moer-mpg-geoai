@@ -2,29 +2,32 @@
 title: Overview
 toc: true
 header:
-  image: /assets/images/unit03/streuobst.jpg
-  image_description: "Fallen apples under a tree"
-  caption: "Image: manfredrichter via [pixabay.com](https://pixabay.com/de/photos/%C3%A4pfel-streuobst-obstbaum-apfelbaum-3684775/)"
- 
+  image: /assets/images/unit04/streuobst.jpg
+  image_description: "Streuobstwiese"
+  caption: "Image: ulrichstill [CC BY-SA 2.0 DE] via [wikimedia.org](https://commons.wikimedia.org/wiki/File:Tuebingen_Streuobstwiese.jpg)"
 ---
 
-Machine learning algorithms, such as random forest, can be trained to find patterns in empirical data that are invisible to humans. Better yet, as long as the training data is representative, these patterns can be used to predict for spaces for which no data is present, which is the goal of this course. But being randomly correct is not the same as a prediction.
+Besides traditional machine learning methods like Random Forest, Convolutional Neural Networks (CNN) as part of Deep Learning are nowadays a default algorithm for many perceptual tasks like computer vision or speech recognition.
+These CNNs are particularly suitable for such tasks because (spatial) patterns can be recognized at different hierachy levels. According to the properties of CNNs, they can also be adapted for the field of remote sensing.
+
 
 <!--more-->
 
 ## Recap
-In the last unit, you became familiar with optical remote sensing systems and the characteristics that affect how satellite (or other airborne) sensors capture information about the real world and represent it digitally. We also investigated cases in which it is appropriate to pair remote sensing imagery with the naked eye, physical models and AI to answer questions about the environment.
+The previous exercise gave you an initial impression of the different datasets that we will use for spatial predictions in R. You created your first simple random forest model that predicts the presence of buildings in Marburg. To build the model, you relied on classical methods of machine learning, such as k-fold cross-validation. In the second part, you performed improved upon the first spatial prediction by using advanced techniques, such as forward feature selection and leave-location-out cross-validation.
 
 ## This session
-In this unit, we will use remote sensing data as the basis for making spatial predictions. First, we will familiarize ourselves with random forest models and a simple cross-validation procedure for evaluating our models. Then we will use a simple application example to familiarize ourselves with the methods. In the second part of this unit, we will adapt the modeling and validation procedures in a way that explicitly addresses the spatial nature of the data. Here, we will use novel geoscience methods to select variables and cross-validate models in a spatial manner. The goal is to understand the methods in the example and then be able to apply them to other data on your own.
+We will now delve a little deeper into the field of spatial prediction and use CNNs to still detect buildings in Marburg.
+First, some concepts and ideas of CNN will be explained, whereby these theoretical basics only give a first outlook on the wide field of Deep Learning. Subsequently, you will be shown a relatively simple example 
+how CNN can be built up and used in remote sensing. For this, it is necessary to perform a different form of data preparation, which is no longer based on a single data frame but on many smaller images of the remote sensing image.
+Once the data preparation is done, the actual model training is shown in the second section. Lastly, two approaches are shown on how such a model can be evaluated and make spatial predictions.
 
 ## Learning objectives
 At the end of this unit you should be able to
 
-* prepare your data for machine learning,
-* use simple example data to train a random forest model with random cross-validation, 
-* understand the concept of a forward feature selection (FFS) and leave-location-out (LLO) cross-validation, and
-* adapt your model by performing FFS and LLO cross-validation to make your modeling workflow spatially robust.
+- understand the basic concept of Convolutional Neural Networks especially the U-Net architecture 
+- prepare your data in R to use it for our modelling framework TensorFlow
+- get your first U-Net up and running 
+- use it to recognize some spatial structures
 
-
-{% include video id="B6Yn-U1Ff60" provider="youtube" %}
+{% include video id="3WcUTMWa9fU" provider="youtube" %}

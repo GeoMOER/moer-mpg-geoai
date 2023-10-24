@@ -1,6 +1,7 @@
 ---
 title: A | Assignment unit 03-2
 toc: true
+published: false
 header:
   image: /assets/images/unit03/streuobst.jpg
   image_description: "Apples under tree"

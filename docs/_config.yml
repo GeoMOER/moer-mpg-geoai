@@ -135,33 +135,23 @@ defaults:
       layout: single
       sidebar:
         nav: "course_unit"
- # # unit03
- # - scope:
- #     path: ""
- #     type: unit03
- #   values:
- #     category: "03 Randomly correct is not predicted"
- #     tags: "Unit 03"
- #     layout: single
- #     sidebar:
- #       nav: "course_unit"
-  # unit04
+  # unit03
   - scope:
       path: ""
-      type: unit04
+      type: unit03
     values:
-      category: "04 Deep Learning "
-      tags: "Unit 04"
+      category: "03 Deep Learning "
+      tags: "Unit 03"
       layout: single
       sidebar:
         nav: "course_unit"
   # unit05
   - scope:
       path: ""
-      type: unit05
+      type: unit04
     values:
-      category: "05 Final team project: spatial prediction"
-      tags: "Unit 05"
+      category: "04 Final team project: spatial prediction"
+      tags: "Unit 04"
       layout: single
       sidebar:
         nav: "course_unit"

@@ -1,6 +1,7 @@
 ---
 title: EX | Spatial prediction
 toc: true
+published: false
 header:
   image: /assets/images/unit03/streuobst.jpg
   image_description: "Apples under tree"

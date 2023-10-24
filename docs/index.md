@@ -31,9 +31,7 @@ When collecting spatial information in the field, a tradeoff must be made betwee
 ## Learning objectives
 The participants will be able to:
 
-* classify spatial data (e.g., from point measurements, surveys, remote sensing) based on their properties and understand the resulting properties of spatial or spatiotemporal predictions;
-
-* select, adapt, and apply machine learning methods to solve spatiotemporal problems in human-environment research;
+* select, adapt, and apply deep learning methods to solve spatial problems in human-environment research;
 
 * design, use, and evaluate training/testing strategies for reliable error and validity estimation;
 
@@ -53,9 +51,8 @@ The course covers 5 units:
 |-------------|-------|-------------|
 |**01**| **Big questions are spatial** |On the invalidity of the first law of geography in heterogeneous spaces.|
 |**02**| **Remote sensing 101** |A brief introduction to remote sensing using optical sensors as an example.|
-#|**03**| **Randomly correct is not predicted** |From data reproduction to spatial prediction.|
-|**04**| **Deep learning** |Deep-learning and spatial patterns.|
-|**05**| **Final team project: spatial prediction** |From curiosity to research question and project planning.|
+|**03**| **Deep learning** |Deep-learning and spatial patterns.|
+|**04**| **Final team project: spatial prediction** |From curiosity to research question and project planning.|
 
 
 

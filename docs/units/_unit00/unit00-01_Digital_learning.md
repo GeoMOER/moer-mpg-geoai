@@ -9,22 +9,11 @@ header:
 This course is intended as a blended learning module, although the provided introductions, explanations and examples might be useful for self-study, too.
 <!--more-->
 
-Our first session of this course will be at the university only. Subsequent sessions will be in a hybrid format, meaning that some of the students may attend the sessions in person at the [Department of Environmental Informatics](https://www.uni-marburg.de/en/fb19/disciplines/physisch/environmentalinformatics){:target="_blank"} in Marburg. The room number is 00A19. You can also participate online: Details about the virtual classroom and how to get there were sent by email to all participants.
-
-
-
-
-## Virtual classroom
-
-We will use [Big Blue Button](https://www.uni-marburg.de/en/hrz/services/web-conferences/web-conferencing-with-bigbluebutton){:target="_blank"} as a virtual classroom for our synchronous (hybrid) sessions.
-The link to our classroom will be provided by the instructor. It can also be found in Ilias.
-
-
 ## Ilias
 
 Ilias is the course space offered by the University of Marburg. 
 We will mainly use Ilias for the administration of the course and providing small static documents. Students will also upload their assignments to the Ilias course page.
-The link to the Ilias space for this course can be found [here]( https://ilias.uni-marburg.de/ilias.php?ref_id=3021391&cmdClass=ilrepositorygui&cmdNode=z9&baseClass=ilrepositorygui){:target="_blank"}.
+The link to the Ilias space for this course can be found [here]( https://ilias.uni-marburg.de/ilias.php?ref_id=3388026&cmdClass=ilrepositorygui&cmdNode=z0&baseClass=ilrepositorygui){:target="_blank"}.
 Note that you have to log in with your student account.
 
 
