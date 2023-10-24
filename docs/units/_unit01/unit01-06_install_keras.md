@@ -16,7 +16,7 @@ header:
 
 
 
-Please note that while this course is primarily based on R, we also use the programming language Python to supplement R. This is primarily the case in Unit 4, which deals with Deep Learning (DL). 
+Please note that while this course is primarily based on R, we also use the programming language Python to supplement R. This is primarily the case in Unit 3, which deals with Deep Learning (DL). 
 ```r
 # install keras & miniconda
 reticulate::install_miniconda()
