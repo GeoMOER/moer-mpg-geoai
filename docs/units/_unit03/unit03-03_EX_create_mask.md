@@ -17,7 +17,7 @@ First, set up the working environment as described in [Unit 01](https://geomoer.
 We will add some more packages and an additional folder to your setup script. In the "modelling" folder you can store your prepared data, your models, your predictions etc.
 
 ```r
-require(envimaR)
+library(envimaR)
 
 packagesToLoad = c(
    "terra",
