@@ -17,166 +17,210 @@ Now we are ready to define a U-Net. Don´t get frightened of by the length of th
 
 
 ```r
-
-#U-Net
+# U-Net
 # function to build a U-Net
 # of course it is possible to change the input_shape
 get_unet_128 <- function(input_shape = c(128, 128, 3),
                          num_classes = 1) {
-   inputs <- layer_input(shape = input_shape)
-   # 128
-   
-   down1 <- inputs %>%
-      layer_conv_2d(filters = 64,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 64,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   down1_pool <- down1 %>%
-      layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
-   # 64
-   
-   down2 <- down1_pool %>%
-      layer_conv_2d(filters = 128,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 128,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   down2_pool <- down2 %>%
-      layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
-   # 32
-   
-   down3 <- down2_pool %>%
-      layer_conv_2d(filters = 256,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 256,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   down3_pool <- down3 %>%
-      layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
-   # 16
-   
-   down4 <- down3_pool %>%
-      layer_conv_2d(filters = 512,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 512,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   down4_pool <- down4 %>%
-      layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
-   #    # 8
-   
-   center <- down4_pool %>%
-      layer_conv_2d(filters = 1024,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 1024,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   # center
-   
-   up4 <- center %>%
-      layer_upsampling_2d(size = c(2, 2)) %>%
-      {
-         layer_concatenate(inputs = list(down4, .), axis = 3)
-      } %>%
-      layer_conv_2d(filters = 512,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 512,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 512,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   # 16
-   
-   up3 <- up4 %>%
-      layer_upsampling_2d(size = c(2, 2)) %>%
-      {
-         layer_concatenate(inputs = list(down3, .), axis = 3)
-      } %>%
-      layer_conv_2d(filters = 256,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 256,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 256,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   # 32
-   
-   up2 <- up3 %>%
-      layer_upsampling_2d(size = c(2, 2)) %>%
-      {
-         layer_concatenate(inputs = list(down2, .), axis = 3)
-      } %>%
-      layer_conv_2d(filters = 128,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 128,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 128,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   #    # 64
-   
-   up1 <- up2 %>%
-      layer_upsampling_2d(size = c(2, 2)) %>%
-      {
-         layer_concatenate(inputs = list(down1, .), axis = 3)
-      } %>%
-      layer_conv_2d(filters = 64,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 64,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu") %>%
-      layer_conv_2d(filters = 64,
-                    kernel_size = c(3, 3),
-                    padding = "same") %>%
-      layer_activation("relu")
-   # 128
-   
-   classify <- layer_conv_2d(
-      up1,
-      filters = num_classes,
-      kernel_size = c(1, 1),
-      activation = "sigmoid"
-   )
-   
-   
-   model <- keras_model(inputs = inputs,
-                        outputs = classify)
-   
-   return(model)
+  inputs <- layer_input(shape = input_shape)
+  # 128
+
+  down1 <- inputs %>%
+    layer_conv_2d(
+      filters = 64,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 64,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  down1_pool <- down1 %>%
+    layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
+  # 64
+
+  down2 <- down1_pool %>%
+    layer_conv_2d(
+      filters = 128,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 128,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  down2_pool <- down2 %>%
+    layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
+  # 32
+
+  down3 <- down2_pool %>%
+    layer_conv_2d(
+      filters = 256,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 256,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  down3_pool <- down3 %>%
+    layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
+  # 16
+
+  down4 <- down3_pool %>%
+    layer_conv_2d(
+      filters = 512,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 512,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  down4_pool <- down4 %>%
+    layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2))
+  # 8
+
+  center <- down4_pool %>%
+    layer_conv_2d(
+      filters = 1024,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 1024,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  # center
+
+  up4 <- center %>%
+    layer_upsampling_2d(size = c(2, 2)) %>%
+    {
+      layer_concatenate(inputs = list(down4, .), axis = 3)
+    } %>%
+    layer_conv_2d(
+      filters = 512,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 512,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 512,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  # 16
+
+  up3 <- up4 %>%
+    layer_upsampling_2d(size = c(2, 2)) %>%
+    {
+      layer_concatenate(inputs = list(down3, .), axis = 3)
+    } %>%
+    layer_conv_2d(
+      filters = 256,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 256,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 256,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  # 32
+
+  up2 <- up3 %>%
+    layer_upsampling_2d(size = c(2, 2)) %>%
+    {
+      layer_concatenate(inputs = list(down2, .), axis = 3)
+    } %>%
+    layer_conv_2d(
+      filters = 128,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 128,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 128,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  # 64
+
+  up1 <- up2 %>%
+    layer_upsampling_2d(size = c(2, 2)) %>%
+    {
+      layer_concatenate(inputs = list(down1, .), axis = 3)
+    } %>%
+    layer_conv_2d(
+      filters = 64,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 64,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu") %>%
+    layer_conv_2d(
+      filters = 64,
+      kernel_size = c(3, 3),
+      padding = "same"
+    ) %>%
+    layer_activation("relu")
+  # 128
+
+  classify <- layer_conv_2d(
+    up1,
+    filters = num_classes,
+    kernel_size = c(1, 1),
+    activation = "sigmoid"
+  )
+
+  model <- keras_model(
+    inputs = inputs,
+    outputs = classify
+  )
+
+  return(model)
 }
 ```
 {% capture optional %}
@@ -207,25 +251,25 @@ The actual modelling is rather short, we load the network,compile and train it.
 ```r
 unet_model <- get_unet_128()
 
-# compile the model 
+# compile the model
 unet_model %>% compile(
-   optimizer = optimizer_adam(learning_rate = 0.0001),
-   loss = "binary_crossentropy",
-   metrics = "accuracy"
+  optimizer = optimizer_adam(learning_rate = 0.0001),
+  loss = "binary_crossentropy",
+  metrics = "accuracy"
 )
 
 # train the model
 hist <- unet_model %>% fit(
-    training_dataset,
-    validation_data = validation_dataset,
-    epochs = 10,
-    verbose = 1
+  training_dataset,
+  validation_data = validation_dataset,
+  epochs = 10,
+  verbose = 1
 )
-
 
 # save the model
 unet_model %>% save_model_hdf5(file.path(envrmt$path_models, "unet_buildings.hdf5"))
 
+# plot training history
 plot(hist)
 ```
 One of the first things you will notice when your fitting your model is this type of line plot. The upper plot shows the progress of the loss. Since we would like to reduce the loss it should continually decrease.
