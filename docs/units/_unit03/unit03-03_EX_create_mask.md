@@ -19,82 +19,82 @@ We will add some more packages and an additional folder to your setup script. In
 ```r
 library(envimaR)
 
-packagesToLoad = c(
-   "terra",
-   "png",
-   "tensorflow",
-   "keras",
-   "reticulate",
-   "sf",
-   "osmdata",
-   "rsample",
-   "tfdatasets",
-   "purrr",
-   "stars",
-   "magick"
+packagesToLoad <- c(
+  "terra",
+  "png",
+  "tensorflow",
+  "keras",
+  "reticulate",
+  "sf",
+  "osmdata",
+  "rsample",
+  "tfdatasets",
+  "purrr",
+  "stars",
+  "magick"
 )
 
-# define a project rootfolder
-rootDir = "~/edu/geoAI"  
+# define a project root folder
+rootDir <- "~/edu/geoAI"
 
 # some new paths
-projectDirList   = c(
-   "data/",
-   "data/modelling/",
-   "data/modelling/model_training_data/",
-   "data/modelling/model_training_data/dop/",
-   "data/modelling/model_training_data/bui/",
-   "data/modelling/models/",
-   "data/modelling/prediction/",
-   "data/modelling/validation/",
-   "data/modelling/model_testing_data/",
-   "data/modelling/model_testing_data/dop/",
-   "data/modelling/model_testing_data/bui/",
-   "docs/",
-   "run/",
-   "tmp",
-   "src/",
-   "src/functions/"
+projectDirList <- c(
+  "data/",
+  "data/modelling/",
+  "data/modelling/model_training_data/",
+  "data/modelling/model_training_data/dop/",
+  "data/modelling/model_training_data/bui/",
+  "data/modelling/models/",
+  "data/modelling/prediction/",
+  "data/modelling/validation/",
+  "data/modelling/model_testing_data/",
+  "data/modelling/model_testing_data/dop/",
+  "data/modelling/model_testing_data/bui/",
+  "docs/",
+  "run/",
+  "tmp",
+  "src/",
+  "src/functions/"
 )
 
 # Now set automatically root direcory, folder structure and load libraries
-envrmt = envimaR::createEnvi(
-   root_folder = rootDir,
-   folders = projectDirList,
-   path_prefix = "path_",
-   libs = packagesToLoad,
-   alt_env_id = "COMPUTERNAME",
-   alt_env_value = "PCRZP",
-   alt_env_root_folder = "F:/BEN/edu"
+envrmt <- createEnvi(
+  root_folder = rootDir,
+  folders = projectDirList,
+  path_prefix = "path_",
+  libs = packagesToLoad,
+  alt_env_id = "COMPUTERNAME",
+  alt_env_value = "PCRZP",
+  alt_env_root_folder = "F:/BEN/edu"
 )
+
 ## set terra temp path
-terra::terra(tempdir = envrmt$path_tmp)
+terraOptions(tempdir = envrmt$path_tmp)
 ```
 
 ## Read the data
 Load the data and crop it to the extent of the Marburg DOP.
 
 ```r
-
 # read data
-ras <- terra::rast(file.path(envrmt$path_data, "marburg_dop.tif"))
+ras <- rast(file.path(envrmt$path_data, "marburg_dop.tif"))
 
 # subset to three channels
 ras <- subset(ras, c("red", "green", "blue"))
 
-# download and crop the OSM building data to the extent of the raster data
-buildings = opq(bbox = "marburg de") %>%
-   add_osm_feature(key = "building") %>%
-   osmdata_sf()
+# download OSM building data
+buildings <- opq(bbox = "marburg de") %>%
+  add_osm_feature(key = "building") %>%
+  osmdata_sf()
 
-buildings = buildings$osm_polygons
+buildings <- buildings$osm_polygons
 
-buildings = sf::st_transform(buildings, crs(ras))
+# transform crs
+buildings <- st_transform(buildings, crs(ras))
 
+# crop OSM building data to the extent of the raster data
 ras_extent <- ext(ras)
-
-buildings <- sf::st_crop(buildings[1], ras_extent)
-
+buildings <- st_crop(buildings[1], ras_extent)
 ```
 
 {% include media4 url="assets/images/unit04/marburg_buildings.html" %} [Full screen version of the map]({{ site.baseurl }}assets/images/unit04/marburg_buildings.html){:target="_blank"}
@@ -114,10 +114,11 @@ rasterized_vector <- rasterize(buildings, ras[[1]])
 rasterized_vector[is.na(rasterized_vector[])] <- 0
 rasterized_vector[rasterized_vector > 1] <- 1
 
-#save
-terra::writeRaster(rasterized_vector,
-                   file.path(envrmt$path_data, "marburg_mask.tif"),
-                   overwrite = T)
+# save
+writeRaster(rasterized_vector,
+  file.path(envrmt$path_data, "marburg_mask.tif"),
+  overwrite = T
+)
 ```
 
 
@@ -132,7 +133,7 @@ Now we will cut the DOP and the mask in two pieces. You can use the extents from
 # divide to training and testing extent
 # 80% for training
 xmin <- ext(ras)[1]
-xmax <- ext(ras)[1] + round(ncol(ras)*0.8, 0) * res(ras)[1]
+xmax <- ext(ras)[1] + round(ncol(ras) * 0.8, 0) * res(ras)[1]
 ymin <- ext(ras)[3]
 ymax <- ext(ras)[4]
 e_train <- ext(xmin, xmax, ymin, ymax)
@@ -140,33 +141,35 @@ e_train <- ext(xmin, xmax, ymin, ymax)
 # the rest for testing
 xmin <- xmax
 xmax <- ext(ras)[2]
-e_test  <- ext(xmin, xmax, ymin, ymax)
+e_test <- ext(xmin, xmax, ymin, ymax)
 
+# crop files
 marburg_mask_train <- crop(rasterized_vector, e_train)
 marburg_dop_train <- crop(ras, e_train)
 
-marburg_mask_test <-  crop(rasterized_vector, e_test)
+marburg_mask_test <- crop(rasterized_vector, e_test)
 marburg_dop_test <- crop(ras, e_test)
 
+# save files
 writeRaster(
-   marburg_mask_test,
-   file.path(envrmt$path_model_testing_data, "marburg_mask_test.tif"),
-   overwrite = T
+  marburg_mask_test,
+  file.path(envrmt$path_model_testing_data, "marburg_mask_test.tif"),
+  overwrite = T
 )
 writeRaster(
-   marburg_dop_test,
-   file.path(envrmt$path_model_testing_data, "marburg_dop_test.tif"),
-   overwrite = T
+  marburg_dop_test,
+  file.path(envrmt$path_model_testing_data, "marburg_dop_test.tif"),
+  overwrite = T
 )
 writeRaster(
-   marburg_mask_train,
-   file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"),
-   overwrite = T
+  marburg_mask_train,
+  file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"),
+  overwrite = T
 )
 writeRaster(
-   marburg_dop_train,
-   file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"),
-   overwrite = T
+  marburg_dop_train,
+  file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"),
+  overwrite = T
 )
 ```
 
@@ -190,53 +193,53 @@ subset_ds <- function(
     input_raster,
     model_input_shape,
     path,
-    targetname = ""
-) {
-    targetSizeX <- model_input_shape[1]
-    targetSizeY <- model_input_shape[2]
-    inputX <- ncol(input_raster)
-    inputY <- nrow(input_raster)
+    targetname = "") {
+  targetSizeX <- model_input_shape[1]
+  targetSizeY <- model_input_shape[2]
+  inputX <- ncol(input_raster)
+  inputY <- nrow(input_raster)
 
-    diffX <- inputX %% targetSizeX
-    diffY <- inputY %% targetSizeY
+  # difference of input and target size
+  diffX <- inputX %% targetSizeX
+  diffY <- inputY %% targetSizeY
 
-    # determine new dimensions of raster and crop,
-    # cutting evenly on all sides if possible
-    newXmin <- ext(input_raster)[1] + ceiling(diffX / 2) * res(input_raster)[1]
-    newXmax <- ext(input_raster)[2] - floor(diffX / 2) * res(input_raster)[1]
-    newYmin <- ext(input_raster)[3] + ceiling(diffY / 2) * res(input_raster)[2]
-    newYmax <- ext(input_raster)[4] - floor(diffY / 2) * res(input_raster)[2]
-    rst_cropped <- crop(
-        input_raster,
-        ext(newXmin, newXmax, newYmin, newYmax)
-    )
+  # determine new dimensions of raster and crop,
+  # cutting evenly on all sides if possible
+  newXmin <- ext(input_raster)[1] + ceiling(diffX / 2) * res(input_raster)[1]
+  newXmax <- ext(input_raster)[2] - floor(diffX / 2) * res(input_raster)[1]
+  newYmin <- ext(input_raster)[3] + ceiling(diffY / 2) * res(input_raster)[2]
+  newYmax <- ext(input_raster)[4] - floor(diffY / 2) * res(input_raster)[2]
+  rst_cropped <- crop(
+    input_raster,
+    ext(newXmin, newXmax, newYmin, newYmax)
+  )
 
-    # grid for splitting
-    agg <- terra::aggregate(
-        rst_cropped[[1]],
-        c(targetSizeX, targetSizeY)
-    )
-    agg[] <- 1:ncell(agg)
-    agg_poly <- as.polygons(agg)
-    names(agg_poly) <- "polis"
+  # grid for splitting
+  agg <- aggregate(
+    rst_cropped[[1]],
+    c(targetSizeX, targetSizeY)
+  )
+  agg[] <- 1:ncell(agg)
+  agg_poly <- as.polygons(agg)
+  names(agg_poly) <- "polis"
 
-    # split and save
-    lapply(seq_along(agg), FUN = function(i) {
-        subs <- local({
-            e1 <- ext(agg_poly[agg_poly$polis == i, ])
-            subs <- crop(rst_cropped, e1)
-        })
-        writePNG(
-            as.array(subs),
-            target = file.path(path, paste0(targetname, i, ".png"))
-        )
+  # split and save
+  lapply(seq_along(agg), FUN = function(i) {
+    subs <- local({
+      e1 <- ext(agg_poly[agg_poly$polis == i, ])
+      subs <- crop(rst_cropped, e1)
     })
-    
-    # free memory
-    rm(agg, agg_poly)
-    gc()
-    
-    return(rst_cropped)
+    writePNG(
+      as.array(subs),
+      target = file.path(path, paste0(targetname, i, ".png"))
+    )
+  })
+
+  # free memory
+  rm(agg, agg_poly)
+  gc()
+
+  return(rst_cropped)
 }
 ```
 
@@ -250,20 +253,19 @@ In this example we will only use the images to train the U-Net that also contain
 ```r
 # remove all masks with only background information and
 # those with only foreground (building) information
-
 remove_files <- function(df) {
-    lapply(seq(1, nrow(df)), function(i) {
-        local({
-            fil = df$list_masks[i]
-            png = readPNG(fil)
-            len = length(png)
-            if((sum(png) == len) | (sum(png) == 0)) {
-                file.remove(df$list_dops[i])
-                file.remove(df$list_masks[i])
-            }
-        })
+  lapply(seq(1, nrow(df)), function(i) {
+    local({
+      fil <- df$list_masks[i]
+      png <- readPNG(fil)
+      len <- length(png)
+      if ((sum(png) == len) | (sum(png) == 0)) {
+        file.remove(df$list_dops[i])
+        file.remove(df$list_masks[i])
+      }
     })
-    return("Done")
+  })
+  return("Done")
 }
 ```
 
