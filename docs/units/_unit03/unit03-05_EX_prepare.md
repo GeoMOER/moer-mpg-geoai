@@ -58,30 +58,26 @@ Image: Data augmentation: Below are the original images and above after data aug
 
 
 ```r
+# function for random change of saturation,brightness and hue,
+# will be used as part of the augmentation
+spectral_augmentation <- function(img) {
+  img <- tf$image$random_brightness(img, max_delta = 0.1)
+  img <-
+     tf$image$random_contrast(img, lower = 0.9, upper = 1.1)
+  img <-
+     tf$image$random_saturation(img, lower = 0.9, upper = 1.1)
+  # make sure we still are between 0 and 1
+  img <- tf$clip_by_value(img, 0, 1)
+}
+
 # function to prepare your data set for all further processes
 prepare_ds <-
    function(files = NULL,
             train,
             predict = FALSE,
             subsets_path = NULL,
-            model_input_shape = c(256, 256),
-            batch_size = batch_size,
-            visual = FALSE) {
+            batch_size = batch_size) {
       if (!predict) {
-         # function for random change of saturation,brightness and hue,
-         # will be used as part of the augmentation
-         
-         spectral_augmentation <- function(img) {
-            img <- tf$image$random_brightness(img, max_delta = 0.1)
-            img <-
-               tf$image$random_contrast(img, lower = 0.9, upper = 1.1)
-            img <-
-               tf$image$random_saturation(img, lower = 0.9, upper = 1.1)
-            # make sure we still are between 0 and 1
-            img <- tf$clip_by_value(img, 0, 1)
-         }
-         
-         
          # create a tf_dataset from the input data.frame
          # right now still containing only paths to images
          dataset <- tensor_slices_dataset(files)
@@ -177,26 +173,17 @@ prepare_ds <-
             dataset_augmented <-
                dataset_concatenate(augmentation, dataset_augmented)
             
-         }
-         
-         # shuffling on training set only
-         # unsauber
-         if (!visual) {
-            if (train) {
-               dataset <-
+            # shuffling on training set only
+            dataset <-
                   dataset_shuffle(dataset_augmented, buffer_size = batch_size * 256)
-            }
             
             # train in batches; batch size might need to be adapted depending on
             # available memory
             dataset <- dataset_batch(dataset, batch_size)
          }
-         if (visual) {
-            dataset <- dataset_augmented
-         }
          
          # output needs to be unnamed
-         dataset <-  dataset_map(dataset, unname)
+         dataset <- dataset_map(dataset, unname)
          
       } else{
          # make sure subsets are read in in correct order
