@@ -16,16 +16,16 @@ We will now split the data into two parts. To do this, we will again place the f
 ```r
 # list the files again
 files <- data.frame(
-   img = list.files(
-      envrmt$path_model_training_data_dop,
-      full.names = TRUE,
-      pattern = "*.png"
-   ),
-   mask = list.files(
-      envrmt$path_model_training_data_bui,
-      full.names = TRUE,
-      pattern = "*.png"
-   )
+  img = list.files(
+    envrmt$path_model_training_data_dop,
+    full.names = TRUE,
+    pattern = "*.png"
+  ),
+  mask = list.files(
+    envrmt$path_model_training_data_bui,
+    full.names = TRUE,
+    pattern = "*.png"
+  )
 )
 
 # split randomly into training and validation (not testing!!) data sets
@@ -63,154 +63,162 @@ Image: Data augmentation: Below are the original images and above after data aug
 spectral_augmentation <- function(img) {
   img <- tf$image$random_brightness(img, max_delta = 0.1)
   img <-
-     tf$image$random_contrast(img, lower = 0.9, upper = 1.1)
+    tf$image$random_contrast(img, lower = 0.9, upper = 1.1)
   img <-
-     tf$image$random_saturation(img, lower = 0.9, upper = 1.1)
+    tf$image$random_saturation(img, lower = 0.9, upper = 1.1)
   # make sure we still are between 0 and 1
   img <- tf$clip_by_value(img, 0, 1)
 }
 
 # function to prepare your data set for all further processes
 prepare_ds <-
-   function(files = NULL,
-            train,
-            predict = FALSE,
-            subsets_path = NULL,
-            batch_size = batch_size) {
-      if (!predict) {
-         # create a tf_dataset from the input data.frame
-         # right now still containing only paths to images
-         dataset <- tensor_slices_dataset(files)
-         
-         # use dataset_map to apply function on each record of the dataset
-         # (each record being a list with two items: img and mask), the
-         # function is list_modify, which modifies the list items
-         # 'img' and 'mask' by using the results of applying decode_png on the img and the mask
-         # -> i.e. pngs are loaded and placed where the paths to the files were (for each record in dataset)
-         dataset <-
-            dataset_map(dataset, function(.x)
-               list_modify(
-                  .x,
-                  img = tf$image$decode_png(tf$io$read_file(.x$img)),
-                  mask = tf$image$decode_png(tf$io$read_file(.x$mask))
-               ))
-         
-         # convert to float32:
-         # for each record in dataset, both its list items are modified
-         # by the result of applying convert_image_dtype to them
-         dataset <-
-            dataset_map(dataset, function(.x)
-               list_modify(
-                  .x,
-                  img = tf$image$convert_image_dtype(.x$img, dtype = tf$float32),
-                  mask = tf$image$convert_image_dtype(.x$mask, dtype = tf$float32)
-               ))
-         
-         
-         # data augmentation performed on training set only
-         if (train) {
-            # augmentation 1: flip left right, including random change of
-            # saturation, brightness and contrast
-            
-            # for each record in dataset, only the img item is modified by the result
-            # of applying spectral_augmentation to it
-            augmentation <-
-               dataset_map(dataset, function(.x)
-                  list_modify(.x, img = spectral_augmentation(.x$img)))
-            
-            #...as opposed to this, flipping is applied to img and mask of each record
-            augmentation <-
-               dataset_map(augmentation, function(.x)
-                  list_modify(
-                     .x,
-                     img = tf$image$flip_left_right(.x$img),
-                     mask = tf$image$flip_left_right(.x$mask)
-                  ))
-            
-            dataset_augmented <-
-               dataset_concatenate(augmentation, dataset)
-            
-            # augmentation 2: flip up down,
-            # including random change of saturation, brightness and contrast
-            augmentation <-
-               dataset_map(dataset, function(.x)
-                  list_modify(.x, img = spectral_augmentation(.x$img)))
-            
-            augmentation <-
-               dataset_map(augmentation, function(.x)
-                  list_modify(
-                     .x,
-                     img = tf$image$flip_up_down(.x$img),
-                     mask = tf$image$flip_up_down(.x$mask)
-                  ))
-            
-            dataset_augmented <-
-               dataset_concatenate(augmentation, dataset_augmented)
-            
-            # augmentation 3: flip left right AND up down,
-            # including random change of saturation, brightness and contrast
-            
-            augmentation <-
-               dataset_map(dataset, function(.x)
-                  list_modify(.x, img = spectral_augmentation(.x$img)))
-            
-            augmentation <-
-               dataset_map(augmentation, function(.x)
-                  list_modify(
-                     .x,
-                     img = tf$image$flip_left_right(.x$img),
-                     mask = tf$image$flip_left_right(.x$mask)
-                  ))
-            
-            augmentation <-
-               dataset_map(augmentation, function(.x)
-                  list_modify(
-                     .x,
-                     img = tf$image$flip_up_down(.x$img),
-                     mask = tf$image$flip_up_down(.x$mask)
-                  ))
-            
-            dataset_augmented <-
-               dataset_concatenate(augmentation, dataset_augmented)
-            
-            # shuffling on training set only
-            dataset <-
-                  dataset_shuffle(dataset_augmented, buffer_size = batch_size * 256)
-            
-            # train in batches; batch size might need to be adapted depending on
-            # available memory
-            dataset <- dataset_batch(dataset, batch_size)
-         }
-         
-         # output needs to be unnamed
-         dataset <- dataset_map(dataset, unname)
-         
-      } else{
-         # make sure subsets are read in in correct order
-         # so that they can later be reassembled correctly
-         # needs files to be named accordingly (only number)
-         o <-
-            order(as.numeric(tools::file_path_sans_ext(basename(
-               list.files(subsets_path)
-            ))))
-         subset_list <- list.files(subsets_path, full.names = T)[o]
-         
-         dataset <- tensor_slices_dataset(subset_list)
-         
-         dataset <-
-            dataset_map(dataset, function(.x)
-               tf$image$decode_png(tf$io$read_file(.x)))
-         
-         dataset <-
-            dataset_map(dataset, function(.x)
-               tf$image$convert_image_dtype(.x, dtype = tf$float32))
-         
-         dataset <- dataset_batch(dataset, batch_size)
-         dataset <-  dataset_map(dataset, unname)
-         
+  function(files = NULL,
+           train,
+           predict = FALSE,
+           subsets_path = NULL,
+           batch_size = batch_size) {
+    if (!predict) {
+      # create a tf_dataset from the input data.frame
+      # right now still containing only paths to images
+      dataset <- tensor_slices_dataset(files)
+
+      # use dataset_map to apply function on each record of the dataset
+      # (each record being a list with two items: img and mask), the
+      # function is list_modify, which modifies the list items
+      # 'img' and 'mask' by using the results of applying decode_png on the img and the mask
+      # -> i.e. pngs are loaded and placed where the paths to the files were (for each record in dataset)
+      dataset <-
+        dataset_map(dataset, function(.x) {
+          list_modify(
+            .x,
+            img = tf$image$decode_png(tf$io$read_file(.x$img)),
+            mask = tf$image$decode_png(tf$io$read_file(.x$mask))
+          )
+        })
+
+      # convert to float32:
+      # for each record in dataset, both its list items are modified
+      # by the result of applying convert_image_dtype to them
+      dataset <-
+        dataset_map(dataset, function(.x) {
+          list_modify(
+            .x,
+            img = tf$image$convert_image_dtype(.x$img, dtype = tf$float32),
+            mask = tf$image$convert_image_dtype(.x$mask, dtype = tf$float32)
+          )
+        })
+
+
+      # data augmentation performed on training set only
+      if (train) {
+        # augmentation 1: flip left right, including random change of
+        # saturation, brightness and contrast
+
+        # for each record in dataset, only the img item is modified by the result
+        # of applying spectral_augmentation to it
+        augmentation <-
+          dataset_map(dataset, function(.x) {
+            list_modify(.x, img = spectral_augmentation(.x$img))
+          })
+
+        # ...as opposed to this, flipping is applied to img and mask of each record
+        augmentation <-
+          dataset_map(augmentation, function(.x) {
+            list_modify(
+              .x,
+              img = tf$image$flip_left_right(.x$img),
+              mask = tf$image$flip_left_right(.x$mask)
+            )
+          })
+
+        dataset_augmented <-
+          dataset_concatenate(augmentation, dataset)
+
+        # augmentation 2: flip up down,
+        # including random change of saturation, brightness and contrast
+        augmentation <-
+          dataset_map(dataset, function(.x) {
+            list_modify(.x, img = spectral_augmentation(.x$img))
+          })
+
+        augmentation <-
+          dataset_map(augmentation, function(.x) {
+            list_modify(
+              .x,
+              img = tf$image$flip_up_down(.x$img),
+              mask = tf$image$flip_up_down(.x$mask)
+            )
+          })
+
+        dataset_augmented <-
+          dataset_concatenate(augmentation, dataset_augmented)
+
+        # augmentation 3: flip left right AND up down,
+        # including random change of saturation, brightness and contrast
+
+        augmentation <-
+          dataset_map(dataset, function(.x) {
+            list_modify(.x, img = spectral_augmentation(.x$img))
+          })
+
+        augmentation <-
+          dataset_map(augmentation, function(.x) {
+            list_modify(
+              .x,
+              img = tf$image$flip_left_right(.x$img),
+              mask = tf$image$flip_left_right(.x$mask)
+            )
+          })
+
+        augmentation <-
+          dataset_map(augmentation, function(.x) {
+            list_modify(
+              .x,
+              img = tf$image$flip_up_down(.x$img),
+              mask = tf$image$flip_up_down(.x$mask)
+            )
+          })
+
+        dataset_augmented <-
+          dataset_concatenate(augmentation, dataset_augmented)
+
+        # shuffling on training set only
+        dataset <-
+          dataset_shuffle(dataset_augmented, buffer_size = batch_size * 256)
+
+        # train in batches; batch size might need to be adapted depending on
+        # available memory
+        dataset <- dataset_batch(dataset, batch_size)
       }
-      
-   }
+
+      # output needs to be unnamed
+      dataset <- dataset_map(dataset, unname)
+    } else {
+      # make sure subsets are read in in correct order
+      # so that they can later be reassembled correctly
+      # needs files to be named accordingly (only number)
+      o <-
+        order(as.numeric(tools::file_path_sans_ext(basename(
+          list.files(subsets_path)
+        ))))
+      subset_list <- list.files(subsets_path, full.names = T)[o]
+
+      dataset <- tensor_slices_dataset(subset_list)
+
+      dataset <-
+        dataset_map(dataset, function(.x) {
+          tf$image$decode_png(tf$io$read_file(.x))
+        })
+
+      dataset <-
+        dataset_map(dataset, function(.x) {
+          tf$image$convert_image_dtype(.x, dtype = tf$float32)
+        })
+
+      dataset <- dataset_batch(dataset, batch_size)
+      dataset <- dataset_map(dataset, unname)
+    }
+  }
 ```
 
 
@@ -220,49 +228,46 @@ We will now apply the function for preparing the datasets to the training and va
 
 ```r
 # one more parameter
-batch_size = 8
+batch_size <- 8
 
 # prepare data for training
-training_dataset <-
-   prepare_ds(
-      training(data),
-      train = TRUE,
-      predict = FALSE,
-      model_input_shape = model_input_shape,
-      batch_size = batch_size
-   )
+training_dataset <- prepare_ds(
+  training(data),
+  train = TRUE,
+  predict = FALSE,
+  batch_size = batch_size
+)
 
 # also prepare validation data
-
-validation_dataset <-
-   prepare_ds(
-      testing(data),
-      train = FALSE,
-      predict = FALSE,
-      model_input_shape = model_input_shape,
-      batch_size = batch_size
-   )
+validation_dataset <- prepare_ds(
+  testing(data),
+  train = FALSE,
+  predict = FALSE,
+  batch_size = batch_size
+)
 ```
 
 Now your data is prepared as a python iterator for TensorFlow it is a little bit difficult to visualize our preparation again.
 
 ```r 
-# we first get a all our training data 
+# we first get a all our training data
 it <- as_iterator(training_dataset)
 it <- iterate(it)
 # head(it)
 
-# we convert our data to an array and also subset our iterator e.g. 
+# we convert our data to an array and also subset our iterator e.g.
 # with the 4th batch ([[4]]) of the images ([[1]])
-im <-as.array(it[[4]][[1]])
+im <- as.array(it[[4]][[1]])
+
 # then we subset just take the first image out of our batch
-im <- im[1,,,]
+im <- im[1, , , ]
+
 # and plot it
 plot(as.raster(im))
 
 # and for the according mask it is almost the same
-ma <-as.array(it[[4]][[2]])
-ma <- ma[1,,,]
+ma <- as.array(it[[4]][[2]])
+ma <- ma[1, , , ]
 plot(as.raster(ma))
 ```
 

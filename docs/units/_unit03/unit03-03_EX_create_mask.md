@@ -277,26 +277,25 @@ Both the DOP and the mask are split into smaller .pngs using the subset_ds funct
 ```r
 # read training data
 marburg_mask_train <-
-   stack(file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"))
+  rast(file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"))
 marburg_dop_train <-
-   stack(file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"))
+  rast(file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"))
 
 # set the size of each image
-model_input_shape = c(128, 128)
+model_input_shape <- c(128, 128)
 
 # subsets for the mask
-
 subset_ds(
-   input_raster = marburg_mask_train,
-   model_input_shape = model_input_shape,
-   path = envrmt$path_model_training_data_bui
+  input_raster = marburg_mask_train,
+  model_input_shape = model_input_shape,
+  path = envrmt$path_model_training_data_bui
 )
 
 # subsets for the dop
 subset_ds(
-   input_raster = marburg_dop_train,
-   model_input_shape = model_input_shape,
-   path = envrmt$path_model_training_data_dop
+  input_raster = marburg_dop_train,
+  model_input_shape = model_input_shape,
+  path = envrmt$path_model_training_data_dop
 )
 ```
 ## Remove empty files
@@ -305,17 +304,19 @@ Now we can apply our functions defined above to our data. Both the DOP and the m
 ```r
 # list all created files in both folders
 list_dops <-
-   list.files(envrmt$path_model_training_data_dop,
-              full.names = TRUE,
-              pattern = "*.png")
+  list.files(envrmt$path_model_training_data_dop,
+    full.names = TRUE,
+    pattern = "*.png"
+  )
 
 list_masks <-
-   list.files(envrmt$path_model_training_data_bui,
-              full.names = TRUE,
-              pattern = "*.png")
+  list.files(envrmt$path_model_training_data_bui,
+    full.names = TRUE,
+    pattern = "*.png"
+  )
 
 # create a data frame
-df = data.frame(list_dops, list_masks)
+df <- data.frame(list_dops, list_masks)
 
 remove_files(df)
 ```
