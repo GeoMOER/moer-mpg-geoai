@@ -130,8 +130,17 @@ terra::writeRaster(rasterized_vector,
 Now we will cut the DOP and the mask in two pieces. You can use the extents from below, or choose two on your own from the image. The larger section will be used to train the model, while the smaller section will be used for testing.
 ```r
 # divide to training and testing extent
-e_test <- extent(483000, 484000, 5626000, 5628000)
-e_train <- extent(480000, 483000, 5626000, 5628000)
+# 80% for training
+xmin <- ext(ras)[1]
+xmax <- ext(ras)[1] + round(ncol(ras)*0.8, 0) * res(ras)[1]
+ymin <- ext(ras)[3]
+ymax <- ext(ras)[4]
+e_train <- ext(xmin, xmax, ymin, ymax)
+
+# the rest for testing
+xmin <- xmax
+xmax <- ext(ras)[2]
+e_test  <- ext(xmin, xmax, ymin, ymax)
 
 marburg_mask_train <- crop(rasterized_vector, e_train)
 marburg_dop_train <- crop(ras, e_train)
