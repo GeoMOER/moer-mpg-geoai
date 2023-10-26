@@ -59,7 +59,6 @@ testing_dataset <- prepare_ds(
   test_file,
   train = FALSE,
   predict = FALSE,
-  model_input_shape = model_input_shape,
   batch_size = batch_size
 )
 ```
@@ -68,10 +67,10 @@ After the data has been prepared, the model is loaded and the evaluation is carr
 
 ```r
 # load a U-Net
-unet_model <-
-  load_model_hdf5(file.path(envrmt$path_models, "unet_buildings.hdf5"),
-    compile = TRUE
-  )
+unet_model <- load_model_hdf5(
+  file.path(envrmt$path_models, "unet_buildings.hdf5"),
+  compile = TRUE
+)
 
 # evaluate the model with test set
 ev <- unet_model$evaluate(testing_dataset)
@@ -84,7 +83,6 @@ This is followed by a comparison between the mask, the original image and the pr
 prediction_dataset <- prepare_ds(
   predict = TRUE,
   subsets_path = envrmt$path_model_testing_data_dop,
-  model_input_shape = model_input_shape,
   batch_size = batch_size
 )
 
