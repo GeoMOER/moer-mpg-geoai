@@ -271,6 +271,10 @@ unet_model %>% save_model_hdf5(file.path(envrmt$path_models, "unet_buildings.hdf
 
 # plot training history
 plot(hist)
+
+# save training history
+path <- file.path(envrmt$path_models, "hist.RDS")
+saveRDS(hist, file = path)
 ```
 One of the first things you will notice when your fitting your model is this type of line plot. The upper plot shows the progress of the loss. Since we would like to reduce the loss it should continually decrease.
 In contrast to the loss the accuracy of the model should increase. If you have such a converging plot your model is currently learning. But it is important that not only the training loss and accuracy is improving but also the validation loss/accuracy.
