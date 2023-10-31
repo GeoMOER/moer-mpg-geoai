@@ -45,7 +45,7 @@ The participants will be able to:
 
 
 # Syllabus
-The course covers 5 units:
+The course covers 4 units:
 
 | Unit | Topic | Learning Content |
 |-------------|-------|-------------|
