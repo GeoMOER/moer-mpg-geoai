@@ -238,7 +238,7 @@ The [sen2r vignette](https://sen2r.ranghetti.info/) offers plenty of helpful inf
 
 Now that we've covered some basics, it's time to practice on your own. The following tasks serve as an orientation framework for practicing in a targeted manner. It requires you to solve some technical, content-related and conceptual problems. Let's go.
 
-At Robert Hijmans' `raster` [homepage](https://rspatial.org/raster/index.html#) you will find a lot of straightforward exercises, including our basic examples from before. Robert also provides the necessary data. Another highly recommend place is [Geocomputation with R](https://geocompr.robinlovelace.net) by Robin Lovelace, Jakub Nowosad and Jannes Muenchow. It is *the* outstanding reference and a perfect starting point for everything related to spatio-temporal data analysis and processing with `R`. 
+At [rspatial](https://rspatial.org/index.html), you will find a lot of straightforward exercises, including our basic examples from before. It also provides the necessary data. Another highly recommend place is [Geocomputation with R](https://geocompr.robinlovelace.net) by Robin Lovelace, Jakub Nowosad and Jannes Muenchow. It is *the* outstanding reference and a perfect starting point for everything related to spatio-temporal data analysis and processing with `R`.
 
 A good approach to improving your skills is to dive into these kind of exercises and use your own data in place of the example data.
 This means:
