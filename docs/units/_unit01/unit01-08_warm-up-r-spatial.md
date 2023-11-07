@@ -193,7 +193,7 @@ The package `sen2r` allows you to download and preprocess Sentinel-2 images dire
 
 {% capture Installation-Help %}
 
-To install `sen2r` you need to have `Rtools` installed.
+To install `sen2r` you need to have `Rtools` installed if you are using Windows.
 
 1. Go to [http://cran.r-project.org/bin/windows/Rtools/](http://cran.r-project.org/bin/windows/Rtools/) 
 1. Select the download link that corresponds to your version of `R`
@@ -212,11 +212,12 @@ Then it is a matter of simply installing the package as we would with any other 
 install.packages("sen2r")
 library(sen2r)
 ```
+
 ### The `sen2r` GUI
 The easiest way to use `sen2r` is to open the graphical user interface (GUI) and use it in interactive mode. However, here you have to choose from a large number of options in the settings. The knowledge required for this is also necessary for the command line version presented below. Both interfaces can be automated. We recommend the API, but ultimately it is up to you. To do so, use the function with the same name.
 
 ```r
-sen2r:sen2r()
+sen2r::sen2r()
 ```
 {% include figure image_path="/assets/images/unit01/sen2r.png" alt="sen2r GUI screenshot" caption="Sen2r GUI starting screen. You have to go through the options tab by tab. The selected configuration can be saved and also called as a script. Note that an account at [Copernicus SciHub](https://scihub.copernicus.eu/dhus/#/home) is mandatory." %}
 
