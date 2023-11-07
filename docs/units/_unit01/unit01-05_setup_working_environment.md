@@ -42,19 +42,19 @@ First, I want to find out which folder structure can be used sensibly on my syst
 
 ```r
 library(envimaR)
-# define a project rootfolder
+# define the project root folder
 rootDir <- "~/edu/geoAI" # this is the mandantory rootfolder of the whole project
 
-# call the alternativeEnvi function
-alternativeEnvi(
-  root_folder = rootDir,             # if it exists, this is the root dir
+# show root folder
+envimaR::alternativeEnvi(
+  root_folder = rootDir,             # if it exists, this is the root folder
   alt_env_id = "COMPUTERNAME",       # check the environment varialbe "COMPUTERNAME"
   alt_env_value = "PCRZP",           # if it contains the string "PCRZP" (e.g. PUM-Pool-PC)
-  alt_env_root_folder = "F:/BEN/edu" # use the alternative rootfolder
+  alt_env_root_folder = "F:/BEN/edu" # use the alternative root folder
 )
 ```
 
-Provided that I want to create a project with the mandantory folder structure defined above, check the PC that I am working on, load all packages that I need and store all of the environment variables in a list for later use, I may use the `createEnvi` function. To do so, I first have to define a list of all packages that I want to load. 
+Provided that I want to create a project with the mandantory folder structure defined above, check the PC that I am working on, load all packages that I need and store all of the environment variables in a list for later use, I may use the `envimaR::createEnvi` function. To do so, I first have to define a list of all packages that I want to load. 
 
 ```r
 # list of packages to load
@@ -70,9 +70,9 @@ projectDirList <- c(
 )
 
 # Automatically set root direcory, folder structure and load libraries
-envrmt <- createEnvi(
-  root_folder = rootDir,
-  folders = projectDirList,
+envrmt <- envimaR::createEnvi(
+  root_folder = rootDir,             # if it exists, this is the root folder
+  folders = projectDirList,          # mandantory folder structure
   path_prefix = "path_",             # prefix to all path variables that are created
   libs = packagesToLoad,             # list of R packages to be loaded
   alt_env_id = "COMPUTERNAME",       # check the environment variable "COMPUTERNAME"
