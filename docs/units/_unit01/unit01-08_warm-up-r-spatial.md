@@ -182,7 +182,7 @@ Please note that `saveRDS`is highly efficient for saving a **single** `R` object
 #-----------------------#
 marburg_stack <- c(dop, rgbI)
 
-saveRDS(marburg_stack, (file.path(envrmt$path_data, "dop_indices.RDS")))
+saveRDS(marburg_stack, file.path(envrmt$path_data, "dop_indices.RDS"))
 ```
 
 # Now repeat with Sentinel satellite data
