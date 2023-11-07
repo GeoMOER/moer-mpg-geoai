@@ -131,9 +131,9 @@ For more information, check out [Earth Lab](https://www.earthdatascience.org/cou
 # First, we assign the three first layers in the raster image to variables
 # called - surprise - red, green and blue (this is to keep it simple and clear)
 #-----------------------#
-red   <- rasterStack[[1]]
-green <- rasterStack[[2]]
-blue  <- rasterStack[[3]]
+red   <- dop[[1]]
+green <- dop[[2]]
+blue  <- dop[[3]]
 
 # Then we calculate all of the indices we need or want
 
@@ -146,11 +146,11 @@ VARI <- (green - red) / (green + red - blue)
 names(VARI) <- "VARI"
 
 ## Triangular greenness index (TGI)
-TGI <- -0.5*(190*(red - green)- 120*(red - blue))
+TGI <- -0.5 * (190 * (red - green) - 120 * (red - blue))
 names(TGI) <- "TGI"
 
-rgbI <- raster::stack(NDTI, VARI, TGI)
-raster::plot(rgbI)
+rgbI <- c(NDTI, VARI, TGI)
+terra::plot(rgbI)
 ```
 
 {% capture Hint %}
@@ -180,7 +180,7 @@ Please note that `saveRDS`is highly efficient for saving a **single** `R` object
 ```r
 # 5 - stack and save as RDS ####
 #-----------------------#
-marburg_stack <- stack(rasterStack, rgbI)
+marburg_stack <- c(dop, rgbI)
 
 saveRDS(marburg_stack, (file.path(envrmt$path_data, "dop_indices.RDS")))
 ```
