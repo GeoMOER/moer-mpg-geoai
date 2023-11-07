@@ -35,14 +35,14 @@ The 20-cm DOP of our study area is available for [download](http://85.214.102.11
 **Writing it down as a script.** 
 Remember: We start **every single script** by sourcing our script `geoAI_setup.R`, from Unit 1. 
 Then we start the actual work:
-* First, we import a digital orthophoto of Marburg. To import so-called raster data, we normally use the package `raster`, which is loaded with the call `library(raster)`. We don't need to do this, however, because we already loaded the package via the setup script. 
+* First, we import a digital orthophoto of Marburg. To import so-called raster data, we normally use the package `terra`, which is loaded with the call `library(terra)`. We don't need to do this, however, because we already loaded the package via the setup script. 
 * Next, we import a vector data set containing the areas of the buildings. 
 * Then, we check the georeferencing.
 * Finally, we visualize the data.
 {: .notice--info}
 
 ### Step 2 - Prepare the data
-After downloading the data, move them into the `data` path of our working environment. 
+After downloading the file, save it into the `data` path of our working environment. 
 We will start by creating a new `R` script called `data.R` in the `src` folder.
 
 
@@ -50,47 +50,48 @@ We will start by creating a new `R` script called `data.R` in the `src` folder.
 
 <script src="https://gist.github.com/uilehre/bada4c4a2b7bd37d464a8170a1f22f08.js"></script>
 
-Specifically, we use the `stack` function from the `raster` package to import the TIF file here. By using the `::` syntax, i.e. `package::function`, we guarantee that we are using a specific function from a specific package. This concept is important to ensure that we are using the correct function (because some packages use the same function names, which is called masking).
+Specifically, we use the `rast` function from the `terra` package to import the TIF file here. By using the `::` syntax, i.e. `package::function`, we guarantee that we are using a specific function from a specific package. This concept is important to ensure that we are using the correct function (because some packages use the same function names, which is called masking).
 
 #### Vector data
 In addition to raster data, `R` can handle vector data as well. A different package, `sf`, is required to read vector data of many types. For training purposes, we will download some data from the Openstreetmap (OSM) database. Take a look at the website for an overview of the available [features](https://wiki.openstreetmap.org/wiki/Map_features).
+
 ```r
 # Example Polygons
 # OSM public data buildings marburg
-# do not forget to add the osmdata package to your header section of the script
+# load OSM data for the Marburg region
 
-library(osmdata)
-# loading OSM data for the Marburg region 
-buildings = opq(bbox = "marburg de") %>% 
-  add_osm_feature(key = "building") %>% 
-  osmdata_sf()
+buildings <- osmdata::opq(bbox = "marburg de") %>%
+  osmdata::add_osm_feature(key = "building") %>%
+  osmdata::osmdata_sf()
 
-buildings = buildings$osm_polygons
+buildings <- buildings$osm_polygons
 
 mapview::mapview(buildings)
 ```
 
 
 #### Coordinate reference system
-Geospatial data always needs a [coordinate reference system (CRS)](https://en.wikipedia.org/wiki/Spatial_reference_system). In `R`, you can check the CRS of an imported layer using the `crs` function in the `raster` package.
+Geospatial data always needs a [coordinate reference system (CRS)](https://en.wikipedia.org/wiki/Spatial_reference_system). In `R`, you can check the CRS of an imported layer using the `crs` function in the `terra` package.
 
 ```r
 # 2 - check CRS and other info
 #-----------------------#
-raster::crs(rasterStack)
-raster::crs(buildings)
+terra::crs(dop)
+terra::crs(buildings)
 ```
-If you want to work with both of these layers together they should return the same CRS. In cases when you are uncertain if two layers have the same CRS, you can use the [compareCRS](https://rdrr.io/cran/raster/man/compareCRS.html) function to test if they are the same.
+
+If you want to work with both of these layers together they should return the same CRS. In cases when you are uncertain if two layers have the same CRS, you can use the [same.crs](https://rspatial.github.io/terra/reference/same.crs.html) function to test if they are the same.
 
 ```r
-raster::compareCRS(rasterStack, buildings)
+terra::same.crs(dop, buildings)
 ```
+
 If these layers have the same CRS, this command will return `TRUE`. Otherwise, `R` will return `FALSE`. Queries like this can be useful for more complex geospatial data workflows, e.g. if two layers have the same CRS, then continue with the analysis, otherwise stop.
 
 In this case they are not the same, so we will transform the CRS of the vector data to the CRS of the raster data.
 ```r
-buildings = sf::st_transform(buildings, crs(rasterStack))
-crs(buildings)
+buildings <- sf::st_transform(buildings, terra::crs(dop))
+terra::same.crs(dop, buildings)
 ```
 
 
@@ -101,11 +102,12 @@ Now that we have the DOP imported into `R`, we want to see what it looks like. T
 # 3 - visualize the data ####
 #-----------------------#
 # simple RGB plot
-raster::plotRGB(rasterStack)
+terra::plotRGB(dop)
 
 # interactive plot
-mapview(rasterStack)
+mapview::mapview(dop)
 ```
+
 **Additional Resources** 
 Many packages and functions have been written to visualize geospatial data in `R`. In fact, there are too many to mention here. If you're interested, [Chapter 1.5](https://geocompr.robinlovelace.net/intro.html#the-history-of-r-spatial) of [Geocomputation with R](https://geocompr.robinlovelace.net/index.html) by Lovelace, Nowosad & Muenchow provides a concise history of the packages developed by the `R` spatial community. 
 {: .notice--info}
