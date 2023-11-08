@@ -45,7 +45,7 @@ library(envimaR)
 # define the project root folder
 rootDir <- "~/edu/geoAI" # this is the mandantory rootfolder of the whole project
 
-# show root folder
+# show the root folder actually used
 envimaR::alternativeEnvi(
   root_folder = rootDir,             # if it exists, this is the root folder
   alt_env_id = "COMPUTERNAME",       # check the environment varialbe "COMPUTERNAME"

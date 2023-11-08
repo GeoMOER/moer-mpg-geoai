@@ -74,7 +74,7 @@ mapview::mapview(buildings)
 Geospatial data always needs a [coordinate reference system (CRS)](https://en.wikipedia.org/wiki/Spatial_reference_system). In `R`, you can check the CRS of an imported layer using the `crs` function in the `terra` package.
 
 ```r
-# 2 - check CRS and other info
+# 2 - check CRS
 #-----------------------#
 terra::crs(dop)
 terra::crs(buildings)
@@ -180,9 +180,9 @@ Please note that `saveRDS`is highly efficient for saving a **single** `R` object
 ```r
 # 5 - stack and save as RDS ####
 #-----------------------#
-marburg_stack <- c(dop, rgbI)
+dop_indices <- c(dop, rgbI)
 
-saveRDS(marburg_stack, file.path(envrmt$path_data, "dop_indices.RDS"))
+saveRDS(dop_indices, file.path(envrmt$path_data, "dop_indices.RDS"))
 ```
 
 # Now repeat with Sentinel satellite data
