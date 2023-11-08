@@ -83,7 +83,7 @@ envrmt <- envimaR::createEnvi(
 
 I will receive something like the following messages. Note, even if they are red, they are not (always) error messages...
 
-```bash
+```
 Loading required package: mapview
 The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
 which was just loaded, were retired in October 2023.
