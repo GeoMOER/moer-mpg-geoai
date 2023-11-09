@@ -14,7 +14,7 @@ header:
 
 
 {% capture Assignment-1-2 %}
-1. If not already done, improve your training data and digitize the following classes "buildings", "agriculture", "forest" and "roads". Create 5 polygons for each class. Save your polygons as geopackage and upload the file to ILIAS. You will need it in the next session to train your machine learning model.
+1. If not already done, improve your training data and digitize the following classes "buildings", "agriculture", "forest" and "roads". Create 5 polygons for each class. Save your polygons as geopackage and upload the file to ILIAS.
 
 {% endcapture %}
 <div class="notice--success">

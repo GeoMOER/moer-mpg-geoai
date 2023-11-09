@@ -182,7 +182,7 @@ marburg_stack <- stack(rasterStack, rgbI)
 
 saveRDS(marburg_stack, (file.path(envrmt$path_data, "dop_indices.RDS")))
 ```
-
+<!--
 # Now repeat with Sentinel satellite data
 Working with high-resolution aerial imagery is certainly nice, but also has its downsides. It is expensive to generate or procure, it often only covers relatively small areas and it is not always readily available. Satellite data, on the other hand, is continuously available and made readily accessible. One example of such satellite data that is often used in environmental remote sensing is the [Sentinel-2 mission](https://sentinel.esa.int/web/sentinel/missions/sentinel-2) by the European Space Agency.
 
@@ -227,7 +227,7 @@ In the following script, Sentinel-2 data are used to calculate the surface albed
 <script src="https://gist.github.com/uilehre/b95d49f3741efc9cdfbe6e6a4175a762.js"></script>
 The [sen2r vignette](https://sen2r.ranghetti.info/) offers plenty of helpful information about how to use the GUI as well as to access the functionality of `sen2r` from within `R`.
 
-
+-->
 
 ## Optional exercises
 
