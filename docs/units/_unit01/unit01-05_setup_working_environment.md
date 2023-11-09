@@ -38,74 +38,69 @@ Essentially, a project may be split at least in three categories of tasks:
 The basis of the aforementioned categories is an adequate storage structure on a suitable permanent storage medium (hard disk, USB stick, cloud, etc.). We suggest a meaningful hierarchical directory structure. The root folder of a project is the basis of an organizational structure branched below.
 
 
-First, I want to find out which folder structure can be used sensibly on my system. Using the so-called `H:` drive on the PCs in the university's computer labs is extremely problematic in this case due to the underlying `dfs//` network assignment. It should therefore be avoided. For an automatic query about which computer I am currently working on (and therefore which root directory I want to use), use the function `envimaR::alternativeEnvi`. 
+First, I want to find out which folder structure can be used sensibly on my system. Using the so-called `H:` drive on the PCs in the university's computer labs is extremely problematic in this case due to the underlying `dfs//` network assignment. It should therefore be avoided. For an automatic query about which computer I am currently working on (and therefore which root directory I want to use), use the function `alternativeEnvi` in the `envimaR` package. 
 
 ```r
-require(envimaR)
-# define a project rootfolder
-rootDir = "~/edu/geoAI"  # This is the mandantory rootfolder of the whole project 
+library(envimaR)
+# define the project root folder
+rootDir <- "~/edu/geoAI" # this is the mandantory rootfolder of the whole project
 
-
-              
-# call the create function
-envimaR::alternativeEnvi(root_folder = rootDir,       # if it exists this is the root dir 
-                         alt_env_id = "COMPUTERNAME", # check the environment varialbe "COMPUTERNAME"
-                         alt_env_value = "PCRZP",     # if it contains the string "PCRZP" (e.g. PUM-Pool-PC)
-                         alt_env_root_folder = "F:/BEN/edu")  # use the alternative rootfolder
+# show the root folder actually used
+envimaR::alternativeEnvi(
+  root_folder = rootDir,             # if it exists, this is the root folder
+  alt_env_id = "COMPUTERNAME",       # check the environment varialbe "COMPUTERNAME"
+  alt_env_value = "PCRZP",           # if it contains the string "PCRZP" (e.g. PUM-Pool-PC)
+  alt_env_root_folder = "F:/BEN/edu" # use the alternative root folder
+)
 ```
 
-Provided that I want to create a project with the mandantory folder structure defined above, check the PC that I am working on, load all packages that I need and store all of the environment variables in a list for later use, I may use the `createEnvi` function. To do so, I first have to define a list of all packages that I want to load. 
+Provided that I want to create a project with the mandantory folder structure defined above, check the PC that I am working on, load all packages that I need and store all of the environment variables in a list for later use, I may use the `envimaR::createEnvi` function. To do so, I first have to define a list of all packages that I want to load. 
 
 ```r
 # list of packages to load
-packagesToLoad = c("mapview", "raster", "rgdal", "sf", "keras", "reticulate")
+packagesToLoad <- c("mapview", "terra", "sf")
 
 # mandantory folder structure
-projectDirList   = c("data/",               # data folders the following are obligatory but you may add more
-                     "run/",                # folder for runtime data storage
-                     "src/",                # source code
-                     "tmp",                 # all temp stuff
-                     "doc/")                # documentation  and markdown
-					 
-					 
-# Automatically set root direcory, folder structure and load libraries
-envrmt = envimaR::createEnvi(root_folder = rootDir,
-                             folders = projectDirList,
-                             path_prefix = "path_",        # prefix to all path variables that are created 
-                             libs = packagesToLoad,        # list of R packages to be loaded
-                             alt_env_id = "COMPUTERNAME",  # check the environment variable "COMPUTERNAME"
-                             alt_env_value = "PCRZP", # check if it contains the string "PCRZP" (e.g. local PC pools)
-                             alt_env_root_folder = "F:/BEN/edu") # use the alternative root folder
-                         
+projectDirList <- c(
+  "data/", # data folders
+  "run/",  # folder for runtime data storage
+  "src/",  # source code
+  "tmp",   # all temp stuff
+  "doc/"   # documentation and markdown
+)
 
+# Automatically set root direcory, folder structure and load libraries
+envrmt <- envimaR::createEnvi(
+  root_folder = rootDir,             # if it exists, this is the root folder
+  folders = projectDirList,          # mandantory folder structure
+  path_prefix = "path_",             # prefix to all path variables that are created
+  libs = packagesToLoad,             # list of R packages to be loaded
+  alt_env_id = "COMPUTERNAME",       # check the environment variable "COMPUTERNAME"
+  alt_env_value = "PCRZP",           # check if it contains the string "PCRZP" (e.g. local PC pools)
+  alt_env_root_folder = "F:/BEN/edu" # use the alternative root folder
+)
 ```
 
 I will receive something like the following messages. Note, even if they are red, they are not (always) error messages...
 
-
-```bash
-Loading required package: lidR
-Loading required package: raster
-Loading required package: sp
-lidR 2.1.2 using 2 threads. Help on <gis.stackexchange.com>. Bug report on <github.com/Jean-Romain/lidR>.
-Loading required package: link2GI
+```
 Loading required package: mapview
-Loading required package: rgdal
-rgdal: version: 1.4-7, (SVN revision 845)
- Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 3.0.1, released 2019/06/28
- Path to GDAL shared files: 
- GDAL binary built with GEOS: TRUE 
- Loaded PROJ.4 runtime: Rel. 6.2.0, September 1st, 2019, [PJ_VERSION: 620]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.3-1 
-Loading required package: rlas
-Loading required package: uavRst
+The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
+which was just loaded, were retired in October 2023.
+Please refer to R-spatial evolution reports for details, especially
+https://r-spatial.org/r/2023/05/15/evolution4.html.
+It may be desirable to make the sf package available;
+package maintainers should consider adding sf to Suggests:.
+GDAL version >= 3.1.0 | setting mapviewOptions(fgb = TRUE)
+Loading required package: terra
+terra 1.7.46
+Loading required package: sf
+Linking to GEOS 3.12.0, GDAL 3.7.2, PROJ 9.3.0; sf_use_s2() is TRUE
 ```
 
 ## Wrap it up in a setup script
 
-Finally, we should initiate some useful settings. It makes sense to have the current Github versions of the non-CRAN packages installed on our systems and to set an option for temporary actions in the `raster` package.
+Finally, we should initiate some useful settings. It makes sense to have the current Github versions of the non-CRAN packages installed on our systems and to set an option for temporary actions in the `terra` package.
 
 
 If we put everything together in one script, it looks like this:
@@ -127,7 +122,6 @@ Again - For the course it is **mandantory** to save this script in the `src` fol
 
 The easiest way to do this is to use the following template for creating each new script.
 
-
 <script src="https://gist.github.com/uilehre/f9b367ec483e78a2c8a8d03bb9f0729d.js"></script>
 
 Thus, the provided script:
@@ -135,7 +129,6 @@ Thus, the provided script:
 - creates/initializes the mandatory basic folder structure 
 - creates a list variable containing all paths as shortcuts  
 - installs and initializes all packages and settings for the project
-
 
 ## Comments?
 You can leave comments under this gist if you have questions or comments about any of the code chunks that are not included as gist. Please copy the corresponding line into your comment to make it easier to answer the question. 

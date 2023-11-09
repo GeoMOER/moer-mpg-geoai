@@ -42,6 +42,13 @@ The participants will be able to:
 * document procedures and results in a comprehensible and transparent manner and critically evaluate results.
 
 
+# Setting
+
+This course will take place in a synchronous setting in presence in room F 14 | 00A19 Wednesdays 08:15 - 09:45.
+In addition, there will be regular meetings with a tutor. 
+The tutor sessions are Fridays 14:00 - 15:00 in room 00A12.
+Note that the tutor sessions are voluntary. 
+{: .notice--info}
 
 
 # Syllabus
