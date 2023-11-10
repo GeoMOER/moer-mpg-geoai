@@ -58,7 +58,7 @@ projectDirList <- c(
 )
 
 # Now set automatically root direcory, folder structure and load libraries
-envrmt <- createEnvi(
+envrmt <- envimaR::createEnvi(
   root_folder = rootDir,
   folders = projectDirList,
   path_prefix = "path_",
@@ -69,7 +69,7 @@ envrmt <- createEnvi(
 )
 
 ## set terra temp path
-terraOptions(tempdir = envrmt$path_tmp)
+terra::terraOptions(tempdir = envrmt$path_tmp)
 ```
 
 ## Read the data
@@ -77,24 +77,24 @@ Load the data and crop it to the extent of the Marburg DOP.
 
 ```r
 # read data
-ras <- rast(file.path(envrmt$path_data, "marburg_dop.tif"))
+ras <- terra::rast(file.path(envrmt$path_data, "marburg_dop.tif"))
 
 # subset to three channels
-ras <- subset(ras, c("red", "green", "blue"))
+ras <- terra::subset(ras, c("red", "green", "blue"))
 
 # download OSM building data
-buildings <- opq(bbox = "marburg de") %>%
-  add_osm_feature(key = "building") %>%
-  osmdata_sf()
+buildings <- osmdata::opq(bbox = "marburg de") %>%
+  osmdata::add_osm_feature(key = "building") %>%
+  osmdata::osmdata_sf()
 
 buildings <- buildings$osm_polygons
 
 # transform crs
-buildings <- st_transform(buildings, crs(ras))
+buildings <- sf::st_transform(buildings, crs(ras))
 
 # crop OSM building data to the extent of the raster data
-ras_extent <- ext(ras)
-buildings <- st_crop(buildings[1], ras_extent)
+ras_extent <- terra::ext(ras)
+buildings <- sf::st_crop(buildings[1], ras_extent)
 ```
 
 {% include media4 url="assets/images/unit04/marburg_buildings.html" %} [Full screen version of the map]({{ site.baseurl }}assets/images/unit04/marburg_buildings.html){:target="_blank"}
@@ -108,14 +108,14 @@ From the file shown in the figure above, containing the outlines of the building
 
 ```r
 # rasterize the buildings
-rasterized_vector <- rasterize(buildings, ras[[1]])
+rasterized_vector <- terra::rasterize(buildings, ras[[1]])
 
 # reclassify to 0 and 1
 rasterized_vector[is.na(rasterized_vector[])] <- 0
 rasterized_vector[rasterized_vector > 1] <- 1
 
 # save
-writeRaster(rasterized_vector,
+terra::writeRaster(rasterized_vector,
   file.path(envrmt$path_data, "marburg_mask.tif"),
   overwrite = T
 )
@@ -132,41 +132,41 @@ Now we will cut the DOP and the mask in two pieces. You can use the extents from
 ```r
 # divide to training and testing extent
 # 80% for training
-xmin <- ext(ras)[1]
-xmax <- ext(ras)[1] + round(ncol(ras) * 0.8, 0) * res(ras)[1]
-ymin <- ext(ras)[3]
-ymax <- ext(ras)[4]
-e_train <- ext(xmin, xmax, ymin, ymax)
+xmin <- terra::ext(ras)[1]
+xmax <- terra::ext(ras)[1] + round(ncol(ras) * 0.8, 0) * res(ras)[1]
+ymin <- terra::ext(ras)[3]
+ymax <- terra::ext(ras)[4]
+e_train <- terra::ext(xmin, xmax, ymin, ymax)
 
 # the rest for testing
 xmin <- xmax
-xmax <- ext(ras)[2]
-e_test <- ext(xmin, xmax, ymin, ymax)
+xmax <- terra::ext(ras)[2]
+e_test <- terra::ext(xmin, xmax, ymin, ymax)
 
 # crop files
-marburg_mask_train <- crop(rasterized_vector, e_train)
-marburg_dop_train <- crop(ras, e_train)
+marburg_mask_train <- terra::crop(rasterized_vector, e_train)
+marburg_dop_train <- terra::crop(ras, e_train)
 
-marburg_mask_test <- crop(rasterized_vector, e_test)
-marburg_dop_test <- crop(ras, e_test)
+marburg_mask_test <- terra::crop(rasterized_vector, e_test)
+marburg_dop_test <- terra::crop(ras, e_test)
 
 # save files
-writeRaster(
+terra::writeRaster(
   marburg_mask_test,
   file.path(envrmt$path_model_testing_data, "marburg_mask_test.tif"),
   overwrite = T
 )
-writeRaster(
+terra::writeRaster(
   marburg_dop_test,
   file.path(envrmt$path_model_testing_data, "marburg_dop_test.tif"),
   overwrite = T
 )
-writeRaster(
+terra::writeRaster(
   marburg_mask_train,
   file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"),
   overwrite = T
 )
-writeRaster(
+terra::writeRaster(
   marburg_dop_train,
   file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"),
   overwrite = T
@@ -196,8 +196,8 @@ subset_ds <- function(
     targetname = "") {
   targetSizeX <- model_input_shape[1]
   targetSizeY <- model_input_shape[2]
-  inputX <- ncol(input_raster)
-  inputY <- nrow(input_raster)
+  inputX <- terra::ncol(input_raster)
+  inputY <- terra::nrow(input_raster)
 
   # difference of input and target size
   diffX <- inputX %% targetSizeX
@@ -205,31 +205,31 @@ subset_ds <- function(
 
   # determine new dimensions of raster and crop,
   # cutting evenly on all sides if possible
-  newXmin <- ext(input_raster)[1] + ceiling(diffX / 2) * res(input_raster)[1]
-  newXmax <- ext(input_raster)[2] - floor(diffX / 2) * res(input_raster)[1]
-  newYmin <- ext(input_raster)[3] + ceiling(diffY / 2) * res(input_raster)[2]
-  newYmax <- ext(input_raster)[4] - floor(diffY / 2) * res(input_raster)[2]
+  newXmin <- terra::ext(input_raster)[1] + ceiling(diffX / 2) * terra::res(input_raster)[1]
+  newXmax <- terra::ext(input_raster)[2] - floor(diffX / 2) * terra::res(input_raster)[1]
+  newYmin <- terra::ext(input_raster)[3] + ceiling(diffY / 2) * terra::res(input_raster)[2]
+  newYmax <- terra::ext(input_raster)[4] - floor(diffY / 2) * terra::res(input_raster)[2]
   rst_cropped <- crop(
     input_raster,
-    ext(newXmin, newXmax, newYmin, newYmax)
+    terra::ext(newXmin, newXmax, newYmin, newYmax)
   )
 
   # grid for splitting
-  agg <- aggregate(
+  agg <- terra::aggregate(
     rst_cropped[[1]],
     c(targetSizeX, targetSizeY)
   )
   agg[] <- 1:ncell(agg)
-  agg_poly <- as.polygons(agg)
+  agg_poly <- terra::as.polygons(agg)
   names(agg_poly) <- "polis"
 
   # split and save
   lapply(seq_along(agg), FUN = function(i) {
     subs <- local({
-      e1 <- ext(agg_poly[agg_poly$polis == i, ])
-      subs <- crop(rst_cropped, e1)
+      e1 <- terra::ext(agg_poly[agg_poly$polis == i, ])
+      subs <- terra::crop(rst_cropped, e1)
     })
-    writePNG(
+    png::writePNG(
       as.array(subs),
       target = file.path(path, paste0(targetname, i, ".png"))
     )
@@ -257,7 +257,7 @@ remove_files <- function(df) {
   lapply(seq(1, nrow(df)), function(i) {
     local({
       fil <- df$list_masks[i]
-      png <- readPNG(fil)
+      png <- png::readPNG(fil)
       len <- length(png)
       if ((sum(png) == len) | (sum(png) == 0)) {
         file.remove(df$list_dops[i])
@@ -277,9 +277,9 @@ Both the DOP and the mask are split into smaller .pngs using the subset_ds funct
 ```r
 # read training data
 marburg_mask_train <-
-  rast(file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"))
+  terra::rast(file.path(envrmt$path_model_training_data, "marburg_mask_train.tif"))
 marburg_dop_train <-
-  rast(file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"))
+  terra::rast(file.path(envrmt$path_model_training_data, "marburg_dop_train.tif"))
 
 # set the size of each image
 model_input_shape <- c(128, 128)

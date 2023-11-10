@@ -16,9 +16,9 @@ For this, the data must first be prepared, as already done in the training proce
 ```r
 # load the test data
 marburg_mask_test <-
-  rast(file.path(envrmt$path_model_testing_data, "marburg_mask_test.tif"))
+  terra::rast(file.path(envrmt$path_model_testing_data, "marburg_mask_test.tif"))
 marburg_dop_test <-
-  rast(file.path(envrmt$path_model_testing_data, "marburg_dop_test.tif"))
+  terra::rast(file.path(envrmt$path_model_testing_data, "marburg_dop_test.tif"))
 
 target_rst <- subset_ds(
   input_raster = marburg_mask_test,
@@ -33,7 +33,7 @@ subset_ds(
 )
 
 # write the target_rst to later rebuild your image
-writeRaster(
+terra::writeRaster(
   target_rst,
   file.path(envrmt$path_model_testing_data, "marburg_mask_test_target.tif"),
   overwrite = T
@@ -67,7 +67,7 @@ After the data has been prepared, the model is loaded and the evaluation is carr
 
 ```r
 # load a U-Net
-unet_model <- load_model_hdf5(
+unet_model <- keras::load_model_hdf5(
   file.path(envrmt$path_models, "unet_buildings.hdf5"),
   compile = TRUE
 )
@@ -94,28 +94,28 @@ for (i in t_sample) {
   png_path <- test_file
   png_path <- png_path[i, ]
 
-  img <- image_read(png_path[, 1])
-  mask <- image_read(png_path[, 2])
-  pred <- image_read(
-    as.raster(predict(object = unet_model, testing_dataset)[i, , , ])
+  img <- magick::image_read(png_path[, 1])
+  mask <- magick::image_read(png_path[, 2])
+  pred <- magick::image_read(
+    terra::as.raster(predict(object = unet_model, testing_dataset)[i, , , ])
   )
 
-  out <- image_append(c(
-    image_annotate(
+  out <- magick::image_append(c(
+    magick::image_annotate(
       mask,
       "Mask",
       size = 10,
       color = "black",
       boxcolor = "white"
     ),
-    image_annotate(
+    magick::image_annotate(
       img,
       "Original Image",
       size = 10,
       color = "black",
       boxcolor = "white"
     ),
-    image_annotate(
+    magick::image_annotate(
       pred,
       "Prediction",
       size = 10,

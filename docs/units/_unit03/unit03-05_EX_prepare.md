@@ -30,7 +30,7 @@ files <- data.frame(
 
 # split randomly into training and validation (not testing!!) data sets
 set.seed(7)
-data <- initial_split(files, prop = 0.8)
+data <- rsample::initial_split(files, prop = 0.8)
 ```
 
 ## Data augmentation
@@ -78,16 +78,16 @@ prepare_ds <- function(files = NULL,
   if (!predict) {
     # create a tf_dataset from the input data.frame
     # right now still containing only paths to images
-    dataset <- tensor_slices_dataset(files)
+    dataset <- tfdatasets::tensor_slices_dataset(files)
 
-    # use dataset_map to apply function on each record of the dataset
+    # use tfdatasets::dataset_map to apply function on each record of the dataset
     # (each record being a list with two items: img and mask), the
-    # function is list_modify, which modifies the list items
+    # function is purrr::list_modify, which modifies the list items
     # 'img' and 'mask' by using the results of applying decode_png on the img and the mask
     # -> i.e. pngs are loaded and placed where the paths to the files were (for each record in dataset)
     dataset <-
-      dataset_map(dataset, function(.x) {
-        list_modify(
+      tfdatasets::dataset_map(dataset, function(.x) {
+        purrr::list_modify(
           .x,
           img = tf$image$decode_png(tf$io$read_file(.x$img)),
           mask = tf$image$decode_png(tf$io$read_file(.x$mask))
@@ -98,8 +98,8 @@ prepare_ds <- function(files = NULL,
     # for each record in dataset, both its list items are modified
     # by the result of applying convert_image_dtype to them
     dataset <-
-      dataset_map(dataset, function(.x) {
-        list_modify(
+      tfdatasets::dataset_map(dataset, function(.x) {
+        purrr::list_modify(
           .x,
           img = tf$image$convert_image_dtype(.x$img, dtype = tf$float32),
           mask = tf$image$convert_image_dtype(.x$mask, dtype = tf$float32)
@@ -114,14 +114,14 @@ prepare_ds <- function(files = NULL,
       # for each record in dataset, only the img item is modified by the result
       # of applying spectral_augmentation to it
       augmentation <-
-        dataset_map(dataset, function(.x) {
-          list_modify(.x, img = spectral_augmentation(.x$img))
+        tfdatasets::dataset_map(dataset, function(.x) {
+          purrr::list_modify(.x, img = spectral_augmentation(.x$img))
         })
 
       # ...as opposed to this, flipping is applied to img and mask of each record
       augmentation <-
-        dataset_map(augmentation, function(.x) {
-          list_modify(
+        tfdatasets::dataset_map(augmentation, function(.x) {
+          purrr::list_modify(
             .x,
             img = tf$image$flip_left_right(.x$img),
             mask = tf$image$flip_left_right(.x$mask)
@@ -129,18 +129,18 @@ prepare_ds <- function(files = NULL,
         })
 
       dataset_augmented <-
-        dataset_concatenate(augmentation, dataset)
+        tfdatasets::dataset_concatenate(augmentation, dataset)
 
       # augmentation 2: flip up down,
       # including random change of saturation, brightness and contrast
       augmentation <-
-        dataset_map(dataset, function(.x) {
-          list_modify(.x, img = spectral_augmentation(.x$img))
+        tfdatasets::dataset_map(dataset, function(.x) {
+          purrr::list_modify(.x, img = spectral_augmentation(.x$img))
         })
 
       augmentation <-
-        dataset_map(augmentation, function(.x) {
-          list_modify(
+        tfdatasets::dataset_map(augmentation, function(.x) {
+          purrr::list_modify(
             .x,
             img = tf$image$flip_up_down(.x$img),
             mask = tf$image$flip_up_down(.x$mask)
@@ -148,19 +148,19 @@ prepare_ds <- function(files = NULL,
         })
 
       dataset_augmented <-
-        dataset_concatenate(augmentation, dataset_augmented)
+        tfdatasets::dataset_concatenate(augmentation, dataset_augmented)
 
       # augmentation 3: flip left right AND up down,
       # including random change of saturation, brightness and contrast
 
       augmentation <-
-        dataset_map(dataset, function(.x) {
-          list_modify(.x, img = spectral_augmentation(.x$img))
+        tfdatasets::dataset_map(dataset, function(.x) {
+          purrr::list_modify(.x, img = spectral_augmentation(.x$img))
         })
 
       augmentation <-
-        dataset_map(augmentation, function(.x) {
-          list_modify(
+        tfdatasets::dataset_map(augmentation, function(.x) {
+          purrr::list_modify(
             .x,
             img = tf$image$flip_left_right(.x$img),
             mask = tf$image$flip_left_right(.x$mask)
@@ -168,8 +168,8 @@ prepare_ds <- function(files = NULL,
         })
 
       augmentation <-
-        dataset_map(augmentation, function(.x) {
-          list_modify(
+        tfdatasets::dataset_map(augmentation, function(.x) {
+          purrr::list_modify(
             .x,
             img = tf$image$flip_up_down(.x$img),
             mask = tf$image$flip_up_down(.x$mask)
@@ -177,19 +177,19 @@ prepare_ds <- function(files = NULL,
         })
 
       dataset_augmented <-
-        dataset_concatenate(augmentation, dataset_augmented)
+        tfdatasets::dataset_concatenate(augmentation, dataset_augmented)
 
       # shuffling
       dataset <-
-        dataset_shuffle(dataset_augmented, buffer_size = batch_size * 256)
+        tfdatasets::dataset_shuffle(dataset_augmented, buffer_size = batch_size * 256)
     }
 
     # train in batches; batch size might need to be adapted depending on
     # available memory
-    dataset <- dataset_batch(dataset, batch_size)
+    dataset <- tfdatasets::dataset_batch(dataset, batch_size)
 
     # output needs to be unnamed
-    dataset <- dataset_map(dataset, unname)
+    dataset <- tfdatasets::dataset_map(dataset, unname)
   } else {
     # make sure subsets are read in in correct order
     # so that they can later be reassembled correctly
@@ -200,20 +200,20 @@ prepare_ds <- function(files = NULL,
       ))))
     subset_list <- list.files(subsets_path, full.names = T)[o]
 
-    dataset <- tensor_slices_dataset(subset_list)
+    dataset <- tfdatasets::tensor_slices_dataset(subset_list)
 
     dataset <-
-      dataset_map(dataset, function(.x) {
+      tfdatasets::dataset_map(dataset, function(.x) {
         tf$image$decode_png(tf$io$read_file(.x))
       })
 
     dataset <-
-      dataset_map(dataset, function(.x) {
+      tfdatasets::dataset_map(dataset, function(.x) {
         tf$image$convert_image_dtype(.x, dtype = tf$float32)
       })
 
-    dataset <- dataset_batch(dataset, batch_size)
-    dataset <- dataset_map(dataset, unname)
+    dataset <- tfdatasets::dataset_batch(dataset, batch_size)
+    dataset <- tfdatasets::dataset_map(dataset, unname)
   }
 }
 ```
@@ -248,8 +248,8 @@ Now your data is prepared as a python iterator for TensorFlow it is a little bit
 
 ```r 
 # we first get a all our training data
-it <- as_iterator(training_dataset)
-it <- iterate(it)
+it <- reticulate::as_iterator(training_dataset)
+it <- reticulate::iterate(it)
 # head(it)
 
 # we convert our data to an array and also subset our iterator e.g.
