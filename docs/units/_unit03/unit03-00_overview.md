@@ -13,9 +13,6 @@ These CNNs are particularly suitable for such tasks because (spatial) patterns c
 
 <!--more-->
 
-## Recap
-The previous exercise gave you an initial impression of the different datasets that we will use for spatial predictions in R. You created your first simple random forest model that predicts the presence of buildings in Marburg. To build the model, you relied on classical methods of machine learning, such as k-fold cross-validation. In the second part, you performed improved upon the first spatial prediction by using advanced techniques, such as forward feature selection and leave-location-out cross-validation.
-
 ## This session
 We will now delve a little deeper into the field of spatial prediction and use CNNs to still detect buildings in Marburg.
 First, some concepts and ideas of CNN will be explained, whereby these theoretical basics only give a first outlook on the wide field of Deep Learning. Subsequently, you will be shown a relatively simple example 

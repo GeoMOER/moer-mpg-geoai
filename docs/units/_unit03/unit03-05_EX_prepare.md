@@ -247,7 +247,7 @@ validation_dataset <- prepare_ds(
 Now your data is prepared as a python iterator for TensorFlow it is a little bit difficult to visualize our preparation again.
 
 ```r 
-# we first get a all our training data
+# we first get all our training data
 it <- reticulate::as_iterator(training_dataset)
 it <- reticulate::iterate(it)
 # head(it)

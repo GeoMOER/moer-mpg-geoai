@@ -15,7 +15,7 @@ header:
 
 
 
-1. After reading the Learning Material (LM) answer the following three questions in maximal three concise sentences:
+1. After reading the Learning Material (LM), answer the following three questions in maximal three concise sentences:
 	* Why do we need artificial intelligence in geo science?
 	* What is the difference between neighborhood, proximity and distance?
 	* Give three examples of Nature's contributions to people (NCPs).

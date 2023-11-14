@@ -111,7 +111,7 @@ Note that installing the listed packages for the first time needs some time for 
 If you encounter errors during this installation process, try to install the packages separately for making troubleshooting more convenient.
 {: .notice--info}
 
-Please *check* the result by navigating to the directory using your favorite file manger. In addition please check the returned `envrmt` list. It contains all of the paths as character strings in a convenient list structure.
+Please *check* the result by navigating to the directory using your favorite file manger. In addition, please check the returned `envrmt` list. It contains all of the paths as character strings in a convenient list structure.
 
 ```r
 str(envrmt)

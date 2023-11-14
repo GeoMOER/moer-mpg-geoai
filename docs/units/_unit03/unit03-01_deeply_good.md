@@ -12,14 +12,14 @@ This learning module focuses (once again) on predicting spatial structures. In t
 <!--more-->
 
 ## Deep learning in a nutshell
-If this is your first exposure to deep learning, this section serves as an incredibly brief introduction to the world of neurons. If you are already familiar with the concept of deep learning neural networks, you can skip ahead directly to the [U-Net](#u-net) section.
+If this is your first exposure to deep learning, this section serves as an incredibly brief introduction to the world of neurons. If you are already familiar with the concept of deep learning neural networks, you can skip and go directly to the [U-Net](#u-net) section.
 
 <p align="center">
   <img width="300" height="300" src="../assets/images/unit04/deep_learning_image.png" alt="drawing">
 </p>
 
 Deep learning algorithms are a machine learning tool, just like random forest models. Deep learning is a special form of neural networks, as we can see in the image above, that are used frequently e.g. in computer vision.
-In the video below some operations were mentioned, that are used in the calculation of CNNs to transform the data, which are not explained in depth in this module. 
+In the video below, some operations mentioned are used in the calculation of CNNs to transform the data. However, they are not explained in depth in this module.  
 These also partially represent hyperparameters that are in the code of the exercises that occur in this unit. For a deeper understanding and the mathematical basics see: 
 [Dumoulin and Visin (2018)](https://arxiv.org/abs/1603.07285) , [Nielsen (2015)](http://neuralnetworksanddeeplearning.com/index.html) and [StatQuest](https://youtube.com/playlist?list=PLblh5JKOoLUIxGDQs4LFFD--41Vzf-ME1).
 
