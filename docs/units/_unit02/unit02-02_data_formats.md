@@ -15,13 +15,13 @@ Reality is too complex to be fully represented by data. Models are a basis for r
 
 ## R packages for spatial data
 
-This blog post -- [Conversions between different spatial classes in R](https://geocompr.github.io/post/2021/spatial-classes-conversion/) -- explains some of the recent developments in spatial data manipulation in R as well as how to convert between them. This post mentions many different packages -- `sp`, `sf`, `raster`, `terra` and `stars` -- but what is the difference and what do we use them for?
+This blog post -- [Conversions between different spatial classes in R](https://geocompx.org/post/2021/spatial-classes-conversion/) -- explains some of the recent developments in spatial data manipulation in R as well as how to convert between them. This post mentions many different packages -- `sp`, `sf`, `raster`, `terra` and `stars` -- but what is the difference and what do we use them for?
 
 ### Vector data
 The package `sp` has been maintained since the early 2000s, but largely replaced by the functionality in `sf`. [sf](https://r-spatial.github.io/sf/), which is short for [simple features](https://r-spatial.github.io/sf/articles/sf1.html), is useful for working with point & polygon data in `R`.
 
 ### Raster data
-Much like the `sp` and `sf` combination for vector data, the packages for working with raster data have also evolved. For working with this data model, the older package `raster` is slowly being replaced by newer options. One such option -- the `terra` package -- is still quite new. Despite being lauded as faster and easier to work with, it still cannot entirely replace `raster` because it does not support all of the same functionality. Another option, `stars` is designed to work with spatial data cubes -- data that combines both continuous spatial data and time. The package is maintained by the same author as the `sf` package. See the CRAN pages of [raster](https://cran.r-project.org/web/packages/raster/index.html),  [terra](https://cran.r-project.org/web/packages/terra/index.html) and [stars](https://cran.r-project.org/web/packages/stars/index.html) for more details.
+Much like the `sp` and `sf` combination for vector data, the packages for working with raster data have also evolved. For working with this data model, the older package `raster` has been superseded by the `terra` package. Another option, `stars` is designed to work with spatial data cubes -- data that combines both continuous spatial data and time. The package is maintained by the same author as the `sf` package. See the CRAN pages of [terra](https://cran.r-project.org/web/packages/terra/index.html) and [stars](https://cran.r-project.org/web/packages/stars/index.html) for more details.
 
 With multiple options for working with both types of spatial data models, which one should you choose to work with? And why are there multiple packages?
 
@@ -32,5 +32,5 @@ Put simply, the landscape is constantly changing. Developers must maintain their
 {% include pdf pdf="GeoAI-Unit02.pdf" %}
 
 ## Additional resources
-* Why R? Webinar: [Recent changes in R spatial and how to be ready for them](https://geocompr.github.io/post/2020/whyr_webinar004/) (April 2020)
-* Blog post ["Conversions between different spatial classes in R"](https://geocompr.github.io/post/2021/spatial-classes-conversion/) (June 2021)
+* Why R? Webinar: [Recent changes in R spatial and how to be ready for them](https://geocompx.org/post/2020/recent-changes-in-r-spatial-and-how-to-be-ready-for-them/) (April 2020)
+* Blog post ["Conversions between different spatial classes in R"](https://geocompx.org/post/2021/spatial-classes-conversion/) (June 2021)
