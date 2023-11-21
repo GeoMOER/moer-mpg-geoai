@@ -14,8 +14,8 @@ header:
 
 
 
-Follow the first exercise of Unit 03. Then change the workflow in a way that you can use your self-made training polygons (you used in the last exercise to train the random forest model) to create a raster mask.
-1.	Modify the code in such a way that you can export the self-created polygon as a raster mask and . png images.
+Follow the first exercise of Unit 03. Then change the workflow in a way that you can use your self-made training polygons to create a raster mask.
+1.	Modify the code in such a way that you can export the self-created polygon as a raster mask and .png images.
 2.	Create a map on which the created raster mask is displayed.
 
 Again put your code and results in an ´Rmarkdown´ file and compile it to a PDF document for upload on ILIAS.

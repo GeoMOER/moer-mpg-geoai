@@ -103,7 +103,7 @@ buildings <- sf::st_crop(buildings[1], ras_extent)
 ## Rasterize the buildings
 
 
-From the file shown in the figure above, containing the outlines of the buildings in the study area, we will first create a raster mask. To do this, we use the DOP of the study area as a reference raster, to ensure that the mask will have the same extent and the same resolution. The transformation of polygons into a raster file with the same properties as the DOP is done by the function rasterize of the raster package. Afterwards a reclassification of the values is performed, where all values that do not represent a building are 0 and all values that represent a building are 1. You can roughly see how the mask for the study area might look in the map below (layer mask).
+From the file shown in the figure above, containing the outlines of the buildings in the study area, we will first create a raster mask. To do this, we use the DOP of the study area as a reference raster, to ensure that the mask will have the same extent and the same resolution. The transformation of polygons into a raster file with the same properties as the DOP is done by the function rasterize of the terra package. Afterwards a reclassification of the values is performed, where all values that do not represent a building are 0 and all values that represent a building are 1. You can roughly see how the mask for the study area might look in the map below (layer mask).
 
 
 ```r
@@ -224,7 +224,7 @@ subset_ds <- function(
   names(agg_poly) <- "polis"
 
   # split and save
-  lapply(seq_along(agg), FUN = function(i) {
+  lapply(seq_along(agg_poly), FUN = function(i) {
     subs <- local({
       e1 <- terra::ext(agg_poly[agg_poly$polis == i, ])
       subs <- terra::crop(rst_cropped, e1)
