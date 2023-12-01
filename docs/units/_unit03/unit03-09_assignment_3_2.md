@@ -15,7 +15,7 @@ header:
 
 
 
-Follow all the exercises in unit 04: 
+Follow all the exercises in unit 03: 
 1.  Create a map of the prediction according to the exemplary workflow described in the unit.
 Now we would like to modify the training data:
 2.  Use the same mask and DOP as before.
