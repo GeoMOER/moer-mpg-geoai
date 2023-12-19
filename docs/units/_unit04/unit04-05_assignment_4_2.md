@@ -13,11 +13,10 @@ header:
    
    
 {% capture Assignment-04-02 %}
-# Assignment unit-03-02
 Bring it to an end. Therefore
-1. implement the feedback to your outline, 
+1. implement the feedback into your outline, 
 2. realize your team project, and
-3. upload your pdf until 10th March 2023 23:59 on ILIAS.
+3. upload your pdf until **to be determined** 2024 23:59 on ILIAS.
 
 
 

@@ -49,12 +49,12 @@ You have also learnt to create your own shapefiles for obtaining training data.
 This could be well necessary if there is no available data set for your (specific) topic.
 
 
-   
-
-
-
 # Feedback
-Feedback on the outline will be given at the session on 13.01.2023. On the one hand, it is necessary to submit the outline in time (09.01.2023!), so that there is enough time for the instructors to prepare feedback. On the other hand, the feedback will be given in the session. In order to make the feedback understandable for everyone, your group should briefly present your outline within 5 minutes. No slides are needed, the two-page outline is sufficient.
+Feedback on the outline will be given in the next session. 
+On the one hand, it is necessary to submit the outline in time, so that there is enough time for the instructors to prepare feedback. 
+On the other hand, the feedback will be given in the session. 
+In order to make the feedback understandable for everyone, your group should briefly present your outline within 5 minutes. 
+No slides are needed, the two-page outline is sufficient.
 
 
 

@@ -12,15 +12,9 @@ To finish this course it is mandatory to submit the final team project.
 
 <!--stimmt das so?-->
 
-## Recap
-In unit 3, we looked at spatial prediction. From a simple random forest model without spatial aspects, 
-we developed a modeling approach that takes into account the spatiality of the data in different parts of the modeling. 
-In unit 4 we dealt with the recognition of spatial structures using the convolutional neuronal network U-Net.
-
-
 ## This unit
 You have almost made it!  This is the last unit of the course in which you will apply what you have learned in the past units. 
-Now you will be challenged to create your own team project from scratch that uses a machine learning or deep learning method for making spatial predictions.
+Now you will be challenged to create your own team project from scratch that uses deep learning for making spatial predictions.
 
 
 ## Learning objectives
