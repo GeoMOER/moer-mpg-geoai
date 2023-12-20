@@ -52,7 +52,7 @@ rebuild_img <- function(pred_subsets,
   }
 
   starstiles <-
-    terra::as.vector(list.files(result_folder, full.names = T), mode = "character")
+    as.vector(list.files(result_folder, full.names = T), mode = "character")
   
   sf::gdal_utils(
     util = "buildvrt",
