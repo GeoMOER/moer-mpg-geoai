@@ -45,8 +45,12 @@ If your research question focuses on a topic with a larger extent or is out of t
 In addition to the above mentioned data sources you can of course freely search for other sources of spatial data, 
 like e.g. [Geoportal NRW](https://www.geoportal.nrw/), [OpenStreetMap](https://www.openstreetmap.de/), [Kaggle](https://www.kaggle.com/), etc.
 
+You might also want to check out data sources related to LiDAR or digital elevation models, or use indices like the NDVI.
+
 You have also learnt to create your own shapefiles for obtaining training data. 
 This could be well necessary if there is no available data set for your (specific) topic.
+
+
 
 
 # Feedback

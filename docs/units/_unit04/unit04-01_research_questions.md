@@ -24,11 +24,11 @@ Some ideas for your team project might be related to the classification, quantif
 * solar panels, pools, trampolines,
 * rooftop greening 
 * city parks
-* bridges
+* bridges, dams, and dikes
 * wind parks
 * airfields
 * military structures
-* archeological features
+* archeological features, e.g. neolithical ringwalls/fortifications, burial grounds, etc.
 * ...
 
 <!--
