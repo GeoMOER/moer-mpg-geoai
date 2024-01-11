@@ -17,7 +17,7 @@ Design a research question and answer it with the skills you learned in the cour
 Below you can find some examples for research question or topics, which you might work on in your final team project.
 However, you are encouraged to work on self-developed research questions in your projects! 
 
-Some ideas for your team project might be related to the classification, quantification, or change detection of
+Some ideas for your team project might be related to the classification, quantification, change detection, or prediction of
 
 * orchard meadows, hedges, or any biotope type
 * cars, bicycles roads, parking lots
