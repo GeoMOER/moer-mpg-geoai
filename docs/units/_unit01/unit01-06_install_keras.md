@@ -34,7 +34,7 @@ micromamba --version
 If version number is returned, you've installed micromamba successfully.
 
 ### 2. Python, TensorFlow, and Keras
-Read the requirements carefully in [this guide](https://www.tensorflow.org/install/pip). We only need the CPU-only build for the course, so you may want to just use tensorflow-cpu. We will use micromamba instead of Miniconda.
+Read the requirements carefully in [this guide](https://www.tensorflow.org/install/pip). We only need the CPU-only build for the course, so you may want to just use tensorflow-cpu. We will use micromamba instead of Miniconda because it's lightweight and much faster.
 
 Create an environment with micromamba. You can replace my_env with any name you like.
 ```command-line
@@ -75,21 +75,27 @@ This will install R, tensorflow, keras, and reticulate.
 micromamba install r-keras --channel conda-forge
 ```
 
-Otherwise, you may must want to use the R you installed before. In R:
+Now you can deactivate the environment and close the command line tool.
+
+```command-line
+micromamba deactivate
+```
+
+Otherwise, you may just want to use the R you installed before. In R, this will install tensorflow, keras, and reticulate:
 ```r
 install.packages("keras")
 ```
 
-## 4. Tell R where to find Python
+### 4. Tell R where to find Python
 The communication goes through reticulate.
 However, there seems to be some issues unsolved.
-Here is a workaround found in [this issue comment](https://github.com/rstudio/reticulate/issues/1460#issuecomment-1803762448)
+Here is a workaround found in [this issue comment](https://github.com/rstudio/reticulate/issues/1460#issuecomment-1803762448).
 
 ```r
 assignInNamespace("is_conda_python", function(x){ return(FALSE) }, ns="reticulate")
 reticulate::use_python("/home/alex/micromamba/envs/my_env/bin/python")
 ```
-You would need to execute the above two lines every time you want to use
+You would need to execute the above two lines everytime you want to use
 this Python environment with your R.
 
 Verify the installation.
