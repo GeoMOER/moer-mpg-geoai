@@ -9,7 +9,7 @@ header:
 
 
 
-Now we are ready to define a U-Net. Don´t get frightened of by the length of this code section. Even if it might look scary at first glance the structure of the individual layers is actually quite repetitive.
+Now we are ready to define a U-Net. Don't get frightened of by the length of this code section. Even if it might look scary at first glance the structure of the individual layers is actually quite repetitive.
 
 <!--more-->
 

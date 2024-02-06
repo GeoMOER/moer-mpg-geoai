@@ -18,7 +18,7 @@ Follow the first exercise of Unit 03. Then change the workflow in a way that you
 1.	Modify the code in such a way that you can export the self-created polygon as a raster mask and .png images.
 2.	Create a map on which the created raster mask is displayed.
 
-Again put your code and results in an ´Rmarkdown´ file and compile it to a PDF document for upload on ILIAS.
+Again put your code and results in an `Rmarkdown` file and compile it to a PDF document for upload on ILIAS.
 
 {% endcapture %}
 <div class="notice--success">

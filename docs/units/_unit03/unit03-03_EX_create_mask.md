@@ -248,7 +248,7 @@ subset_ds <- function(
 
 ## Function to remove files without training data
 
-In this example we will only use the images to train the U-Net that also contain one of the objects we want to detect (a building). Therefore we will use the following function to remove from all .pngs, that have only one value in the mask (0 no house), both the mask image and the corresponding DOP .png.
+In this example we will only use the images that contain both building and non-building to train the U-Net. Therefore, we will use the following function to remove all .png files that have only one value in the mask, both the mask image and the corresponding DOP .png.
 
 ```r
 # remove all masks with only background information and
