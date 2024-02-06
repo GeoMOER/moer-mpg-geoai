@@ -93,7 +93,7 @@ Here is a workaround found in [this issue comment](https://github.com/rstudio/re
 
 ```r
 assignInNamespace("is_conda_python", function(x){ return(FALSE) }, ns="reticulate")
-reticulate::use_python("/home/alex/micromamba/envs/my_env/bin/python")
+reticulate::use_python("~/micromamba/envs/my_env/bin/python")
 ```
 You would need to execute the above two lines everytime you want to use
 this Python environment with your R.
