@@ -14,7 +14,7 @@ header:
 Training areas are the basis of supervised classification. Creating training areas allows us, the user, to tell the computer what we see in an image. It transfers the knowledge that we have about individual objects in an image to a digital level. Once we have enough training areas, we can feed them into a machine learning algorithm to classify the remaining pixels of an image. This process is called supervised classification.
 
 ### Digital orthophotos
-First, the DOPs. Digital [orthophotos](https://en.wikipedia.org/wiki/Orthophoto) are images taken from either satellites or aerial photography that have been corrected using a [digital surface model (DSM)](https://en.wikipedia.org/wiki/Digital_elevation_model#Terminology). The correction process, called [orthorectification](https://www.dlr.de/eoc/en/desktopdefault.aspx/tabid-6144/10056_read-20918/), is necessary for removing sensor, satellite/aircraft motion and terrain-related geometric distortions from the raw imagery. This step is one of the main processing steps in evaluating remote sensing data, as it produces a true-to-scale photographic map.
+First, the DOPs. Digital [orthophotos](https://en.wikipedia.org/wiki/Orthophoto) are images taken from either satellites or aerial photography that have been corrected using a [digital surface model (DSM)](https://en.wikipedia.org/wiki/Digital_elevation_model#Terminology). The correction process, called [orthorectification](https://www.intermap.com/blog/orthorectification-in-a-nutshell), is necessary for removing sensor, satellite/aircraft motion and terrain-related geometric distortions from the raw imagery. This step is one of the main processing steps in evaluating remote sensing data, as it produces a true-to-scale photographic map.
 
 ### Supervised classification
 A supervised land-cover classification uses a limited set of labeled training data to derive a model, which predicts the respective land-cover in the entire dataset. Hence, the land-cover types are defined *a priori* and the model tries to predict these types based on the similarity between the properties of the training data and the rest of the dataset.
@@ -37,7 +37,7 @@ The following illustration shows the steps of a supervised classification in mor
 This exercise will prepare the polygon data that is necessary to predict buildings in Marburg, Hesse. Please follow along with the example of creating a vector layer of buildings in QGIS. Remember to save your data in the appropriate folder from the setup in Unit 1!
 
 ### Creating vector layers in QGIS
-We will use the open source GIS QGIS to create training areas. In this course, we will use the current long-term release (as of October 2021), QGIS 3.16.11 Hanover. You can download QGIS either as a [standalone version](https://qgis.org/en/site/forusers/download.html) or using OSGeo4w.
+We will use the open source GIS QGIS to create training areas. In this course, we will use the long-term release, QGIS 3.16.11 Hanover (October 2021). You can download QGIS either as a [standalone version](https://qgis.org/en/site/forusers/download.html) or using OSGeo4w.
 
 First, open QGIS and in the "Browser" panel on the upper left-hand side, navigate to the geoAI project data folder. Double click on `marburg_dop.tif` to add the TIF as a layer in the project. You will see it appear in the lower left-hand panel "Layers". You can also drag the layer from the "Browser" panel and drop it into the "Layers" panel.
 
@@ -51,7 +51,7 @@ Next, we need to create a new GeoPackage layer, in which we will save the polygo
 
 In the "New GeoPackage Layer" window, give your new GeoPackage a name in the Database field. You also need to assign a name to the Table. Next, select the geometry type -- in this case "Polygon" because we want to create polygons. Then select the CRS for the layer. We want our polygons to have the same CRS as our DOP, so we select the option that begins with "Project CRS:". Finally, we have the option to add fields. Every polygon will have some unique attributes that will appear in the Attribute Table. We can use the attributes of a polygon (or any other geometry) to filter. It's important to think of generic categories for the fields, because they will be headers of columns and each polygon will be an entry in the table. In this example, we have chosen "Region" and "class" for our polygons, both of type text and length 20. To create the Layer, click OK. 
 
-The category in the "class" field is particularly important for the prediction that we will make in Unit 3. Create polygons with two categories of "class": one class in which you assign the value "building" to the digitized houses and another class in which you digitize various other aspects of the space (these polygons should have the value "other"). Try to mix your polygons well in this category, i.e. include roads, cars, houses, water, fields, meadows and forest, in order to represent as broad of a spectrum as possible.
+The category in the "class" field is particularly important for model training, as it contains the response varaible. Create polygons with two categories of "class": one class in which you assign the value "building" to the digitized houses and another class in which you digitize various other aspects of the space (these polygons should have the value "other"). Try to mix your polygons well in this category, i.e. include roads, cars, houses, water, fields, meadows and forest, in order to represent as broad of a spectrum as possible.
 {: .notice--info}
 
 Then, we need to toggle editing on for the Buildings layer. Right click on the Buildings layer in the Layer panel and select "Toggle editing". You also have the button to toggle editing on in the toolbar, if you have the Digitizing toolbar enabled ("View" > "Toolbars" > "Digitizing Toolbar"). 
@@ -72,7 +72,7 @@ Complete this process for as much of the area as you can. Once you're done with 
 
 {% include figure image_path="/assets/images/unit02/step6_open_attribute_table.png" alt="View attribute table" %}
 
-Congratulations, you've hand-drawn and digitized your first set of training areas! This step is important for the machine learning algorithms that we will use in the next unit.
+Congratulations, you've hand-drawn and digitized your first set of training areas!
 
 ## WMS in QGIS
 To digitize your training area you can also work with a [Web Map Service]( https://en.wikipedia.org/wiki/Web_Map_Service) from the [Hesse Open data portal]( https://gds.hessen.de/INTERSHOP/web/WFS/HLBG-Geodaten-Site/de_DE/-/EUR/ViewSearch-Start;pgid=NIZSrncl7gBSRpNPt1AR16YC0000c3t_BPfE). In the QGIS browser window you can go to WMS/WMTS there you can chose `add new connection`. For the Hessen DOPs add the following URL: https://www.gds-srv.hessen.de/cgi-bin/lika-services/ogc-free-images.ows?
@@ -80,8 +80,7 @@ To digitize your training area you can also work with a [Web Map Service]( https
 DOPs Hessen is now available as WMS and you can add it to your current map.
 ## Additional resources
 * [Digitizing training and test areas](http://wiki.awf.forst.uni-goettingen.de/wiki/index.php/Digitizing_training_and_test_areas) by the [Forest Inventory and Remote Sensing](https://www.uni-goettingen.de/en/67094.html) department at the University of Goettingen (Germany)
-* [Digitizing polygons tutorial](https://docs.qgis.org/3.16/en/docs/training_manual/create_vector_data/create_new_vector.html#basic-ty-digitizing-polygons) in the QGIS 3.16 documentation
-* [Supervised classification tutorial](https://www2.geog.soton.ac.uk/users/trevesr/obs/rseo/supervised_classification.html) by Richard Treves, formerly of the University of Southampton (UK) 
+* [Digitizing polygons tutorial](https://docs.qgis.org/3.34/en/docs/training_manual/create_vector_data/create_new_vector.html) in the QGIS 3.16 documentation
 * Read and work through the following [tutorial](https://rspatial.org/raster/rs/5-supclassification.html). 
 
 
@@ -92,8 +91,8 @@ You can leave comments under this Issue if you have questions or remarks about a
 
 
 <script src="https://utteranc.es/client.js"
-        repo="GeoMOER/geoAI"
-        issue-term="GeoAI_2021_unit_02_EX_digitizing_training_areas"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit02-05_digitize_training_areas"
         theme="github-light"
         crossorigin="anonymous"
         async>

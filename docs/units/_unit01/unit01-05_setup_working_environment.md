@@ -43,7 +43,7 @@ First, I want to find out which folder structure can be used sensibly on my syst
 ```r
 library(envimaR)
 # define the project root folder
-rootDir <- "~/edu/geoAI" # this is the mandantory rootfolder of the whole project
+rootDir <- paste0(getwd(),"/geoAI") # this is the mandantory foldername of the whole project
 
 # show the root folder actually used
 envimaR::alternativeEnvi(
@@ -52,6 +52,7 @@ envimaR::alternativeEnvi(
   alt_env_value = "PCRZP",           # if it contains the string "PCRZP" (e.g. PUM-Pool-PC)
   alt_env_root_folder = "F:/BEN/edu" # use the alternative root folder
 )
+
 ```
 
 Provided that I want to create a project with the mandantory folder structure defined above, check the PC that I am working on, load all packages that I need and store all of the environment variables in a list for later use, I may use the `envimaR::createEnvi` function. To do so, I first have to define a list of all packages that I want to load. 
@@ -136,8 +137,8 @@ You can leave comments under this gist if you have questions or comments about a
 
 
 <script src="https://utteranc.es/client.js"
-        repo="GeoMOER/geoAI"
-        issue-term="GeoAI_2021_unit_01_EX_Setting_up_the_course_environment"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit01-05_setup_working_environment"
         theme="github-light"
         crossorigin="anonymous"
         async>

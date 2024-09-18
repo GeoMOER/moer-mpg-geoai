@@ -14,7 +14,7 @@ These CNNs are particularly suitable for such tasks because (spatial) patterns c
 <!--more-->
 
 ## This session
-We will now delve a little deeper into the field of spatial prediction and use CNNs to still detect buildings in Marburg.
+We will now delve a little deeper into the field of spatial prediction and use CNNs to detect buildings in Marburg.
 First, some concepts and ideas of CNN will be explained, whereby these theoretical basics only give a first outlook on the wide field of Deep Learning. Subsequently, you will be shown a relatively simple example 
 how CNN can be built up and used in remote sensing. For this, it is necessary to perform a different form of data preparation, which is no longer based on a single data frame but on many smaller images of the remote sensing image.
 Once the data preparation is done, the actual model training is shown in the second section. Lastly, two approaches are shown on how such a model can be evaluated and make spatial predictions.

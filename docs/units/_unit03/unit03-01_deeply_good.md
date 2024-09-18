@@ -7,7 +7,7 @@ header:
   caption: "Image: ulrichstill [CC BY-SA 2.0 DE] via [wikimedia.org](https://commons.wikimedia.org/wiki/File:Tuebingen_Streuobstwiese.jpg)"
 ---
 
-This learning module focuses (once again) on predicting spatial structures. In the previous unit, we saw that random forest models are capable of making good predictions at the pixel level. Yet we are interested in identifying spatial structures in their entirety. In this case, the value of a single pixel is interesting, but the values of a neighborhood of pixels is much more interesting. Deep learning neural networks are appropriate for recognizing structures in this way.
+This learning module focuses on predicting spatial structures. Machine learning models can be used to make good predictions at the pixel level. Yet we are interested in identifying spatial structures in their entirety. In this case, the value of a single pixel is interesting, but the values of a neighborhood of pixels is much more interesting. Deep learning neural networks are appropriate for recognizing structures in this way.
 
 <!--more-->
 
@@ -18,7 +18,7 @@ If this is your first exposure to deep learning, this section serves as an incre
   <img width="300" height="300" src="../assets/images/unit04/deep_learning_image.png" alt="drawing">
 </p>
 
-Deep learning algorithms are a machine learning tool, just like random forest models. Deep learning is a special form of neural networks, as we can see in the image above, that are used frequently e.g. in computer vision.
+Deep learning algorithms are a machine learning tool, just like random forest models or support vector machines. Deep learning is a special form of neural networks, as we can see in the image above, that are used frequently e.g. in computer vision.
 In the video below, some operations mentioned are used in the calculation of CNNs to transform the data. However, they are not explained in depth in this module.  
 These also partially represent hyperparameters that are in the code of the exercises that occur in this unit. For a deeper understanding and the mathematical basics see: 
 [Dumoulin and Visin (2018)](https://arxiv.org/abs/1603.07285) , [Nielsen (2015)](http://neuralnetworksanddeeplearning.com/index.html) and [StatQuest](https://youtube.com/playlist?list=PLblh5JKOoLUIxGDQs4LFFD--41Vzf-ME1).

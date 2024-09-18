@@ -27,3 +27,17 @@ Here you find all learning materials, assignments and help.
 
 Larger files are provided for download on our course server, which you can find [here](http://85.214.102.111/geo_data/data/){:target="_blank"}.
 The credentials will be provided by the instructors.
+
+
+
+## Comments?
+You can leave comments under this Issue if you have questions or remarks about any of the content on this page.
+
+
+<script src="https://utteranc.es/client.js"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit00-01_Digital_learning"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>

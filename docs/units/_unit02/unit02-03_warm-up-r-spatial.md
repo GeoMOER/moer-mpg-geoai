@@ -27,7 +27,7 @@ In detail, we will perform the following tasks:
 
 
 ### Step 1 - Get the data and setup the working environment
-The Hessian State Department of Land Management and Geoinformation ([Hessische Verwaltung fuer Bodenmanagement und Geoinformation; HVBG](https://hvbg.hessen.de/)) commissions flights for the entire state of Hesse every 2 years. They make the imagery, known as digital orthophotos (DOPs), available in 20cm and 40cm resolution with 4 channels: Red (R), Green (G), Blue (B) and Near-Infrared (NIR). More information about the HVBG's DOPs is available [here](https://hvbg.hessen.de/geoinformation/landesvermessung/geotopographie/luftbilder/digitale-orthophotos-atkis%C2%AE-dops-und-true) (German only). 
+The Hessian State Department of Land Management and Geoinformation ([Hessische Verwaltung fuer Bodenmanagement und Geoinformation; HVBG](https://hvbg.hessen.de/)) commissions flights for the entire state of Hesse every 2 years. They make the imagery, known as digital orthophotos (DOPs), available in 20cm and 40cm resolution with 4 channels: Red (R), Green (G), Blue (B) and Near-Infrared (NIR). More information about the HVBG's DOPs is available [here](https://hvbg.hessen.de/landesvermessung/geotopographie/luftbilder/digitale-orthophotos-true-orthophoto) (German only). 
 
 The 20-cm DOP of our study area is available for [download](http://85.214.102.111/geo_data/data/01_raw_data/aerial/) from the course server. Please note that the HVBG has provided these DOPs free of charge for the purpose of education and that they may only be used in the context of this course.
 
@@ -66,7 +66,10 @@ buildings <- osmdata::opq(bbox = "marburg de") %>%
 
 buildings <- buildings$osm_polygons
 
-mapview::mapview(buildings)
+# have a look at your data
+buildings
+
+plot(st_geometry(buildings))
 ```
 
 
@@ -74,8 +77,7 @@ mapview::mapview(buildings)
 Geospatial data always needs a [coordinate reference system (CRS)](https://en.wikipedia.org/wiki/Spatial_reference_system). In `R`, you can check the CRS of an imported layer using the `crs` function in the `terra` package.
 
 ```r
-# 2 - check CRS
-#-----------------------#
+# check CRS
 terra::crs(dop)
 terra::crs(buildings)
 ```
@@ -99,14 +101,14 @@ terra::same.crs(dop, buildings)
 Now that we have the DOP imported into `R`, we want to see what it looks like. There are many options for visualizing geospatial data in `R`, whether it be raster or vector data, with options ranging from basic static plots, e.g. `plotRGB` to interactive plots, e.g. `mapview`.
 
 ```r
-# 3 - visualize the data ####
-#-----------------------#
+#  visualize the data 
 # simple RGB plot
 terra::plotRGB(dop)
 
 # interactive plot
-mapview::mapview(dop)
+mapview::viewRGB(raster::stack(dop), r=1,g=2,b=3)
 ```
+
 
 **Additional Resources** 
 Many packages and functions have been written to visualize geospatial data in `R`. In fact, there are too many to mention here. If you're interested, [Chapter 1.5](https://geocompr.robinlovelace.net/intro.html#the-history-of-r-spatial) of [Geocomputation with R](https://geocompr.robinlovelace.net/index.html) by Lovelace, Nowosad & Muenchow provides a concise history of the packages developed by the `R` spatial community. 
@@ -126,7 +128,7 @@ Visualizing spatial data is fantastic and makes sense -- we want to make maps af
 For more information, check out [Earth Lab](https://www.earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/vegetation-indices-NDVI-in-R/)
 
 ```r
-# 4 - calculate RGB indices ####
+# calculate RGB indices 
 # We can use raster as simple calculator
 # First, we assign the three first layers in the raster image to variables
 # called - surprise - red, green and blue (this is to keep it simple and clear)
@@ -166,23 +168,16 @@ terra::plot(rgbI)
 </div> 
 
 ### Step 5 - Save the results for later
-Finally, now that we have calculated some remote sensing indices that will be necessary for our machine learning prediction later on, it would be useful and time-efficient to only have to calculate them once (not every time that we open an `R` session). RDS is ideal for this purpose, because it allows us to save a single `R` object to a file and restore it. 
+Finally, now that we have calculated some remote sensing indices that will be necessary for our machine learning prediction later on, it would be useful and time-efficient to only have to calculate them once (not every time that we open an `R` session). 
 
-{% capture saveRDS %}
 
-Please note that `saveRDS`is highly efficient for saving a **single** `R` object only.
-
-{% endcapture %}
-<div class="notice--info">
-  {{ saveRDS | markdownify }}
-</div>
 
 ```r
-# 5 - stack and save as RDS ####
-#-----------------------#
+# stack and save
+
 dop_indices <- c(dop, rgbI)
 
-saveRDS(dop_indices, file.path(envrmt$path_data, "dop_indices.RDS"))
+terra::writeRaster(dop_indices, file.path(envrmt$path_data, "dop_indices.tif"))
 ```
 <!--
 # Now repeat with Sentinel satellite data
@@ -254,7 +249,7 @@ It is a good habit to document what you learn (the knowledge you gain) and any o
 * [Geographic data in R](https://geocompr.robinlovelace.net/spatial-class.html)
 * [Spatial data operations](https://geocompr.robinlovelace.net/spatial-operations.html#spatial-operations)
 2. Read and work through Robert Hijmans' page about [unsupervised classification](https://rspatial.org/raster/rs/4-unsupclassification.html#unsupervised-classification). Follow his guidelines. 
-Instead of the example data from Robert's tutorial, you can use either the Sentinel data or the DOP data.
+Instead of the example data from Robert's tutorial, you can use the DOP data.
 Since you will not find sufficient water areas in the data (unlike in Roberts' example) you can combine the vegetation-covered classes and the vegetation-free classes.
 
 
@@ -270,13 +265,13 @@ For more information, you can look at the following resources:
 
 
 ## Comments?
-You can leave comments under this gist if you have questions or comments about any of the code chunks that are not included as gist. Please copy the corresponding line into your comment to make it easier to answer the question. 
+You can leave comments under this issue if you have questions or comments about any of the code chunks. Please copy the corresponding line into your comment to make it easier to answer the question. 
 
 
 
 <script src="https://utteranc.es/client.js"
-        repo="GeoMOER/geoAI"
-        issue-term="GeoAI_2021_unit_01_EX_Warm_up_R-spatial"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit01-08_warm-up-r-spatial"
         theme="github-light"
         crossorigin="anonymous"
         async>

@@ -23,8 +23,8 @@ You can leave comments under this Issue if you have questions or remarks about a
 
 
 <script src="https://utteranc.es/client.js"
-        repo="GeoMOER/geoAI"
-        issue-term="GeoAI_2021_unit_00_FAQ"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit00-04_FAQ"
         theme="github-light"
         crossorigin="anonymous"
         async>
