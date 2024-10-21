@@ -192,28 +192,29 @@ To train the U-Net, many smaller images of the same size are needed instead of t
 subset_ds <- function(
     input_raster,
     model_input_shape,
+    mask=FALSE,
     path,
     targetname = "") {
   targetSizeX <- model_input_shape[1]
   targetSizeY <- model_input_shape[2]
   inputX <- terra::ncol(input_raster)
   inputY <- terra::nrow(input_raster)
-
+  
   # difference of input and target size
   diffX <- inputX %% targetSizeX
   diffY <- inputY %% targetSizeY
-
+  
   # determine new dimensions of raster and crop,
   # cutting evenly on all sides if possible
   newXmin <- terra::ext(input_raster)[1] + ceiling(diffX / 2) * terra::res(input_raster)[1]
   newXmax <- terra::ext(input_raster)[2] - floor(diffX / 2) * terra::res(input_raster)[1]
   newYmin <- terra::ext(input_raster)[3] + ceiling(diffY / 2) * terra::res(input_raster)[2]
   newYmax <- terra::ext(input_raster)[4] - floor(diffY / 2) * terra::res(input_raster)[2]
-  rst_cropped <- crop(
+  rst_cropped <- terra::crop(
     input_raster,
     terra::ext(newXmin, newXmax, newYmin, newYmax)
   )
-
+  
   # grid for splitting
   agg <- terra::aggregate(
     rst_cropped[[1]],
@@ -222,23 +223,25 @@ subset_ds <- function(
   agg[] <- 1:ncell(agg)
   agg_poly <- terra::as.polygons(agg)
   names(agg_poly) <- "polis"
-
+  
   # split and save
   lapply(seq_along(agg_poly), FUN = function(i) {
     subs <- local({
       e1 <- terra::ext(agg_poly[agg_poly$polis == i, ])
       subs <- terra::crop(rst_cropped, e1)
+      if(mask==F){subs <-subs/255}
+      return(subs)
     })
     png::writePNG(
-      as.array(subs),
+      terra::as.array(subs),
       target = file.path(path, paste0(targetname, i, ".png"))
     )
   })
-
+  
   # free memory
   rm(agg, agg_poly)
   gc()
-
+  
   return(rst_cropped)
 }
 ```
@@ -335,8 +338,8 @@ You can leave comments under this Issue if you have questions or remarks about a
 
 
 <script src="https://utteranc.es/client.js"
-        repo="GeoMOER/geoAI"
-        issue-term="GeoAI_2021_unit_04_EX_Create Masks"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit03-03_EX_create_mask"
         theme="github-light"
         crossorigin="anonymous"
         async>

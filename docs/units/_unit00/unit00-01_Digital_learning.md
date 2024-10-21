@@ -13,7 +13,7 @@ This course is intended as a blended learning module, although the provided intr
 
 Ilias is the course space offered by the University of Marburg. 
 We will mainly use Ilias for the administration of the course and providing small static documents. Students will also upload their assignments to the Ilias course page.
-The link to the Ilias space for this course can be found [here]( https://ilias.uni-marburg.de/ilias.php?ref_id=3388026&cmdClass=ilrepositorygui&cmdNode=z0&baseClass=ilrepositorygui){:target="_blank"}.
+The link to the Ilias space for this course can be found [here](https://ilias.uni-marburg.de/ilias.php?baseClass=ilrepositorygui&ref_id=4113072){:target="_blank"}.
 Note that you have to log in with your student account.
 
 

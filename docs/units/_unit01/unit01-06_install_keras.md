@@ -56,7 +56,7 @@ micromamba shell init
 
 
 ### 2. Python, TensorFlow, and Keras
-With the following introduction we will set up *'Python, TensorFlow, and Keras** using the micromamba environment. We will use micromamba instead of Miniconda because it's lightweight and much faster.
+With the following introduction we will set up **Python, TensorFlow, and Keras** using the micromamba environment. We will use micromamba instead of Miniconda because it's lightweight and much faster.
 
 #### Create an environment with micromamba
 First, create an isolated environment using micromamba. You can name this environment whatever you like by replacing my_env with your preferred name.

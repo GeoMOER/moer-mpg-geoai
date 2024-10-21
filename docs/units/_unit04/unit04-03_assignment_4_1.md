@@ -17,8 +17,8 @@ Write your project outline. Therefore
 <!--1. find your group members and get to know each other, -->
 1. choose a research question,
 1. strictly follow the points mentioned under "Content and structure" on the previous page,
-1. upload your project outline to ILIAS until 8 January 2024 23:59 as one pdf file, and 
-1. present your outline in the session on 10 January 2024.
+1. upload your project outline to ILIAS until 12 January 2025 23:59 as one pdf file, and 
+1. present your outline in the session on 15 January 2025.
 
 Again put your outline in an ´Rmarkdown´ file and compile it to a PDF document for upload on ILIAS.
 

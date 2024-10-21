@@ -244,6 +244,8 @@ validation_dataset <- prepare_ds(
 )
 ```
 
+<!--
+
 Now your data is prepared as a python iterator for TensorFlow it is a little bit difficult to visualize our preparation again.
 
 ```r 
@@ -268,7 +270,7 @@ ma <- ma[1, , , ]
 plot(as.raster(ma))
 ```
 
-
+-->
 
 
 
@@ -277,8 +279,8 @@ You can leave comments under this Issue if you have questions or remarks about a
 
 
 <script src="https://utteranc.es/client.js"
-        repo="GeoMOER/geoAI"
-        issue-term="GeoAI_2021_unit_04_EX_Prepare_your_data"
+        repo="GeoMOER/moer-mpg-geoai"
+        issue-term="unit03-05_EX_prepare"
         theme="github-light"
         crossorigin="anonymous"
         async>

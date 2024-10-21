@@ -20,6 +20,9 @@ marburg_mask_test <-
 marburg_dop_test <-
   terra::rast(file.path(envrmt$path_model_testing_data, "marburg_dop_test.tif"))
 
+# set the size of each image
+model_input_shape <- c(128, 128)
+
 target_rst <- subset_ds(
   input_raster = marburg_mask_test,
   model_input_shape = model_input_shape,
@@ -55,6 +58,8 @@ test_file <- data.frame(
   )
 )
 
+batch_size <- 8
+
 testing_dataset <- prepare_ds(
   test_file,
   train = FALSE,
@@ -63,7 +68,7 @@ testing_dataset <- prepare_ds(
 )
 ```
 
-After the data has been prepared, the model is loaded and the evaluation is carried out using this prepared test data. You can compare these values with history of the training process [here](). We simply use the built-in method of TensorFlow.
+After the data has been prepared, the model is loaded and the evaluation is carried out using this prepared test data. You can compare these values with history of the training process. We simply use the built-in method of TensorFlow.
 
 ```r
 # load a U-Net
@@ -71,6 +76,13 @@ unet_model <- keras::load_model_hdf5(
   file.path(envrmt$path_models, "unet_buildings.hdf5"),
   compile = TRUE
 )
+
+#--------------
+# if loading of model is not working:
+# in the shell downgrade your h5py package:
+# 
+# pip install 'h5py==2.10.0' --force-reinstall
+#---------------
 
 # evaluate the model with test set
 ev <- unet_model$evaluate(testing_dataset)

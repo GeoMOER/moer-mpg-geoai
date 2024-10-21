@@ -44,7 +44,7 @@ The participants will be able to:
 
 # Setting
 
-This course will take place in a hybrid setting in presence in room F 14 | 00A19 Wednesdays 09:15 - 11:45 and online in room [to be defined](to be defined).
+This course will take place in a hybrid setting in presence in room F 14 | 00A19 Wednesdays 09:15 - 11:45 and [in the online room](https://ilias.uni-marburg.de/ilias.php?baseClass=ilObjPluginDispatchGUI&cmd=forward&ref_id=4113846&forwardCmd=showContent).
 <!---In addition, there will be regular meetings with a tutor. 
 The tutor sessions are Fridays 14:00 - 15:00 in room 00A12.
 Note that the tutor sessions are voluntary. -->

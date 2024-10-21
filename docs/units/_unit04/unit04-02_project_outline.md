@@ -39,7 +39,7 @@ As a rough guideline,1GB roughly corresponds to 30km² (40cm resolution, RGBA).
    
    
 ## Sentinel-2
-If your research question focuses on a topic with a larger extent or is out of the boundaries of Hesse/North Rhine-Westphalia, it is presumably required to download your data somewhere else. One possible data source is the Sentinel-2 mission. You already know how to download Sentinel-2 data via the `sen2r-package`.
+If your research question focuses on a topic with a larger extent or is out of the boundaries of Hesse/North Rhine-Westphalia, it is presumably required to download your data somewhere else. One possible data source is the Sentinel-2 mission. You can download Sentinel-2 data via the `sen2r-package`.
    
 ## Other sources
 In addition to the above mentioned data sources you can of course freely search for other sources of spatial data, 

@@ -74,11 +74,8 @@ target_rst <- terra::rast(file.path(envrmt$path_model_testing_data, "marburg_mas
 
 # make the actual prediction
 pred_subsets <- predict(object = unet_model, x = prediction_dataset)
-```
 
-The corresponding prediction map can be found within the folder below (with the name mosaic.tif) and might look something like the map below.
 
-```r
 # name your output path
 model_name <- "unet_abc"
 
