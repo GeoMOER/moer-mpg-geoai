@@ -11,7 +11,7 @@ header:
   cta_url: "/units.html"
 excerpt: Advanced geospatial analyses with AI.
 feature_row_intro:
-- excerpt: This Module is part of Honors Degree Program "AI and Entrepreneurship" - a contribution of [Environmental Informatics Lab of Philipps-University of Marburg](https://www.uni-marburg.de/de/fb19/disciplines/physisch/umweltinformatik) to [hessian.AI - The Hessian Center for Artificial Intelligence](https://hessian.ai/), co-funded by the German Federal Ministry of Education and Research.
+- excerpt: Master level course at the Department of Geography at the University of Marburg.
 feature_row_ilos:
 - image_path: "/assets/images/envobs_ilos.jpg"
   alt: PC monitor laying in the garden of the institute.
@@ -44,10 +44,11 @@ The participants will be able to:
 
 # Setting
 
-This course will take place in a hybrid setting in presence in room F 14 | 00A19 Wednesdays 09:15 - 11:45 and [in the online room](https://ilias.uni-marburg.de/ilias.php?baseClass=ilObjPluginDispatchGUI&cmd=forward&ref_id=4113846&forwardCmd=showContent).
-<!---In addition, there will be regular meetings with a tutor. 
-The tutor sessions are Fridays 14:00 - 15:00 in room 00A12.
-Note that the tutor sessions are voluntary. -->
+This course will take place in a hybrid synchronous setting in presence in room F 14 | 00A19 and online. 
+In addition, there will be regular meetings with a tutor. 
+Details on the additional tutor sessions will be provided in the first regular session, which will take place on **Wednesday 23.10.2024 at 9:15 am** (German time) in room F 14 | 00A19. 
+The virtual room for online participants must be accesses via ILIAS. 
+Note that the tutor sessions are voluntary.
 {: .notice--info}
 
 
