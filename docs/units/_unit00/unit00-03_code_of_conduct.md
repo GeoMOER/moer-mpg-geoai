@@ -15,6 +15,7 @@ Please
 * submit your assignments on time,
 * excuse yourself if you cannot make it to a session,
 * prefer addressing everyone by first names ("Duzen") rather than using formal titles ("Siezen").
+* please join the online sessions with your microphone enabled to actively participate in discussions. Additionally, consider turning on your camera to facilitate more direct and engaging interactions.
 
 
 
