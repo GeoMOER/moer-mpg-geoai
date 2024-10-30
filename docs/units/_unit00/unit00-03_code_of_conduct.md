@@ -16,6 +16,7 @@ Please
 * excuse yourself if you cannot make it to a session,
 * prefer addressing everyone by first names ("Duzen") rather than using formal titles ("Siezen").
 * join the online sessions with your microphone enabled to actively participate in discussions. Additionally, consider turning on your camera to facilitate more direct and engaging interactions.
-
+* join the online room with a headset for good audio quality.
+* make sure you join the online room in a way that you can share your screen.
 
 
