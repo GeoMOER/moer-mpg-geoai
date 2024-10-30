@@ -59,7 +59,7 @@ Provided that I want to create a project with the mandantory folder structure de
 
 ```r
 # list of packages to load
-packagesToLoad <- c("mapview", "terra", "sf")
+packagesToLoad <- c( "terra", "sf")
 
 # mandantory folder structure
 projectDirList <- c(
@@ -85,18 +85,10 @@ envrmt <- envimaR::createEnvi(
 I will receive something like the following messages. Note, even if they are red, they are not (always) error messages...
 
 ```
-Loading required package: mapview
-The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
-which was just loaded, were retired in October 2023.
-Please refer to R-spatial evolution reports for details, especially
-https://r-spatial.org/r/2023/05/15/evolution4.html.
-It may be desirable to make the sf package available;
-package maintainers should consider adding sf to Suggests:.
-GDAL version >= 3.1.0 | setting mapviewOptions(fgb = TRUE)
-Loading required package: terra
-terra 1.7.46
-Loading required package: sf
-Linking to GEOS 3.12.0, GDAL 3.7.2, PROJ 9.3.0; sf_use_s2() is TRUE
+Lade nötiges Paket: terra
+terra 1.7.78
+Lade nötiges Paket: sf
+Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE
 ```
 
 ## Wrap it up in a setup script

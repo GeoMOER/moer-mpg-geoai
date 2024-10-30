@@ -55,13 +55,38 @@ Note that the tutor sessions are voluntary.
 # Syllabus
 The course covers 4 units:
 
+| Session | Date | Topic | Content |
+|---------|------|-------|---------|
+||| **01 Big questions are spatial** |
+| 01 | 23.10.2024 | People in space | The importance of spatial composition and configuration of landscapes exemplified by the IPBES Nature's Contributions to People framework. |
+| 02 | 30.10.2024 | Setting up the computational environment | Introduction to the setup of a computational working environment. Install and configure TensorFlow and Keras for spatial data analysis applications. |
+||| **02 Remote Sensing 101** |
+| 03 | 06.11.2024 | Remote sensing and data formats | Discuss foundational concepts in remote sensing, including data acquisition, key features, and distinctions between spatial data formats (e.g., raster, vector). |
+| 04 | 13.11.2024 | Digitizing training areas | Use open-source GIS software to manually digitize training areas, building skills in data preprocessing and preparation for model training. |
+||| **03 Deep Learning** |
+| 05 | 20.11.2024 | Deeply good | Introduction to deep learning principles and applications for spatial pattern recognition. Discuss workflow steps, mask creation, and model training principles.
+| 06 | 27.11.2024 | U-Net | Explore data augmentation techniques, then train a U-Net model for spatial image segmentation. |
+| 07 | 04.12.2024 | Model performance and prediction | Techniques for evaluating model performance and interpreting spatial predictions. |
+||| **04 Final team project: spatial prediction** |
+| 08 | 11.12.2024 | built in hold |  |
+| 09 | 18.12.2024 | Research questions | Define project scope and goals, establish project teams, and discuss initial ideas. |
+| 10 | 15.01.2025 | Research presentation | Present project outlines to peers for constructive feedback. |
+| 11 | 22.01.2025 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
+| 12 | 29.01.2025 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
+| 13 | 05.02.2025 | Research project | Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
+| 14 | 12.02.2025 | Wrap up | Time for questions and feedback, goodbye |
+
+
+
+
+<!--
 | Unit | Topic | Learning Content |
 |-------------|-------|-------------|
 |**01**| **Big questions are spatial** |On the invalidity of the first law of geography in heterogeneous spaces.|
 |**02**| **Remote sensing 101** |A brief introduction to remote sensing using optical sensors as an example.|
 |**03**| **Deep learning** |Deep-learning and spatial patterns.|
 |**04**| **Final team project: spatial prediction** |From curiosity to research question and project planning.|
-
+-->
 
 
 Also check our additional material for teaching basic R skills, 
