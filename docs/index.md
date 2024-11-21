@@ -68,8 +68,8 @@ The course covers 4 units:
 | 06 | 27.11.2024 | U-Net | Explore data augmentation techniques, then train a U-Net model for spatial image segmentation. |
 | 07 | 04.12.2024 | Model performance and prediction | Techniques for evaluating model performance and interpreting spatial predictions. |
 ||| **04 Final team project: spatial prediction** |
-| 08 | 11.12.2024 | built in hold |  |
-| 09 | 18.12.2024 | Research questions | Define project scope and goals, establish project teams, and discuss initial ideas. |
+| 08 | 11.12.2024 | Research questions | Define project scope and goals, establish project teams, and discuss initial ideas. |
+| 09 | 18.12.2024 | built in hold |  |
 | 10 | 15.01.2025 | Research presentation | Present project outlines to peers for constructive feedback. |
 | 11 | 22.01.2025 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
 | 12 | 29.01.2025 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
