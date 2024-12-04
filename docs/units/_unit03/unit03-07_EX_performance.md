@@ -82,6 +82,13 @@ unet_model <- keras::load_model_hdf5(
 # in the shell downgrade your h5py package:
 # 
 # pip install 'h5py==2.10.0' --force-reinstall
+#
+# if this is also not working try:
+# ​delete ".decode("utf-8")" from the line: 
+#    
+#in the file: 
+#C:\user\envs\geoai_env\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py
+#
 #---------------
 
 # evaluate the model with test set
