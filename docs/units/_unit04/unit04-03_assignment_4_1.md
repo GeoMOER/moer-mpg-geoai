@@ -20,7 +20,7 @@ Write your project outline. Therefore
 1. upload your project outline to ILIAS until 12 January 2025 23:59 as one pdf file, and 
 1. present your outline in the session on 15 January 2025.
 
-Again put your outline in an ´Rmarkdown´ file and compile it to a PDF document for upload on ILIAS.
+Again put your outline in a PDF document for upload on ILIAS.
 
 {% endcapture %}
 <div class="notice--success">
