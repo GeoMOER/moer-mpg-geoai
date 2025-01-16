@@ -52,13 +52,12 @@ This could be well necessary if there is no available data set for your (specifi
 
 
 
-
 # Feedback
 Feedback on the outline will be given in the next session. 
 On the one hand, it is necessary to submit the outline in time, so that there is enough time for the instructors to prepare feedback. 
 On the other hand, the feedback will be given in the session. 
-In order to make the feedback understandable for everyone, your group should briefly present your outline within 5 minutes. 
-No slides are needed, the two-page outline is sufficient.
+In order to make the feedback understandable for everyone, please prepare a concise presentation of your outline using a few slides. Your presentation should not exceed 10 minutes and may include images (e.g., of your study area) to make your topic more accessible.
+
 
 
 
