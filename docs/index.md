@@ -46,8 +46,8 @@ The participants will be able to:
 
 This course will take place in a hybrid synchronous setting in presence in room F 14 | 00A19 and online. 
 In addition, there will be regular meetings with a tutor. 
-Details on the additional tutor sessions will be provided in the first regular session, which will take place on **Wednesday 23.10.2024 at 9:15 am** (German time) in room F 14 | 00A19. 
-The virtual room for online participants must be accesses via ILIAS. 
+Details on the additional tutor sessions will be provided in the first regular session, which will take place on **Wednesday 22.10.2025 at 9:15 am** (German time) in room F 14 | 00A19. 
+The virtual room for online participants must be accessed via [ILIAS](https://ilias.uni-marburg.de/ilias.php?baseClass=ilrepositorygui&ref_id=4407825). 
 Note that the tutor sessions are voluntary.
 {: .notice--info}
 
@@ -58,23 +58,23 @@ The course covers 4 units:
 | Session | Date | Topic | Content |
 |---------|------|-------|---------|
 ||| **01 Big questions are spatial** |
-| 01 | 23.10.2024 | People in space | The importance of spatial composition and configuration of landscapes exemplified by the IPBES Nature's Contributions to People framework. |
-| 02 | 30.10.2024 | Setting up the computational environment | Introduction to the setup of a computational working environment. Install and configure TensorFlow and Keras for spatial data analysis applications. |
+| 01 | 22.10.2025 | People in space | The importance of spatial composition and configuration of landscapes exemplified by the IPBES Nature's Contributions to People framework. |
+| 02 | 29.10.2025 | Setting up the computational environment | Introduction to the setup of a computational working environment. Install and configure TensorFlow and Keras for spatial data analysis applications. |
 ||| **02 Remote Sensing 101** |
-| 03 | 06.11.2024 | Remote sensing and data formats | Discuss foundational concepts in remote sensing, including data acquisition, key features, and distinctions between spatial data formats (e.g., raster, vector). |
-| 04 | 13.11.2024 | Digitizing training areas | Use open-source GIS software to manually digitize training areas, building skills in data preprocessing and preparation for model training. |
+| 03 | 05.11.2025 | Remote sensing and data formats | Discuss foundational concepts in remote sensing, including data acquisition, key features, and distinctions between spatial data formats (e.g., raster, vector). |
+| 04 | 12.11.2025 | Digitizing training areas | Use open-source GIS software to manually digitize training areas, building skills in data preprocessing and preparation for model training. |
 ||| **03 Deep Learning** |
-| 05 | 20.11.2024 | Deeply good | Introduction to deep learning principles and applications for spatial pattern recognition. Discuss workflow steps, mask creation, and model training principles.
-| 06 | 27.11.2024 | U-Net | Explore data augmentation techniques, then train a U-Net model for spatial image segmentation. |
-| 07 | 04.12.2024 | Model performance and prediction | Techniques for evaluating model performance and interpreting spatial predictions. |
+| 05 | 19.11.2025 | Deeply good | Introduction to deep learning principles and applications for spatial pattern recognition. Discuss workflow steps, mask creation, and model training principles.
+| 06 | 26.11.2025 | U-Net | Explore data augmentation techniques, then train a U-Net model for spatial image segmentation. |
+| 07 | 03.12.2025 | Model performance and prediction | Techniques for evaluating model performance and interpreting spatial predictions. |
 ||| **04 Final team project: spatial prediction** |
-| 08 | 11.12.2024 | Research questions | Define project scope and goals, establish project teams, and discuss initial ideas. |
-| 09 | 18.12.2024 | built in hold |  |
-| 10 | 15.01.2025 | Research presentation | Present project outlines to peers for constructive feedback. |
-| 11 | 22.01.2025 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
-| 12 | 29.01.2025 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
-| 13 | 05.02.2025 | Research project | Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
-| 14 | 12.02.2025 | Wrap up | Time for questions and feedback, goodbye |
+| 08 | 10.12.2025 | Research questions | Define project scope and goals, establish project teams, and discuss initial ideas. |
+| 09 | 17.12.2025 | built in hold |  |
+| 10 | 14.01.2026 | Research presentation | Present project outlines to peers for constructive feedback. |
+| 11 | 21.01.2026 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
+| 12 | 28.01.2026 | Research project |Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
+| 13 | 04.02.2026 | Research project | Conduct comprehensive project work, including data collection, model training, and spatial prediction tasks. Write your final team project. |
+| 14 | 11.02.2026 | Wrap up | Time for questions and feedback, goodbye |
 
 
 

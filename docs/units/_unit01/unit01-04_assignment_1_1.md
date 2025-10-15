@@ -20,7 +20,7 @@ header:
 	* What is the difference between neighborhood, proximity and distance?
 	* Give three examples of Nature's contributions to people (NCPs).
 	
-Please upload the assignment as a PDF to the ["Assignments" folder in ILIAS](https://ilias.uni-marburg.de/ilias.php?baseClass=ilrepositorygui&cmd=view&ref_id=4133976) by no later than October 30, 2024, at 9:00 AM.
+Please upload the assignment as a PDF to the ["Assignments" folder in ILIAS](https://ilias.uni-marburg.de/ilias.php?baseClass=ilrepositorygui&ref_id=4407825) by no later than October 29, 2025, at 9:00 AM.
 
 {% endcapture %}
 <div class="notice--success">
