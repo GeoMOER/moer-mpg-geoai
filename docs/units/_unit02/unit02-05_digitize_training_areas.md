@@ -80,7 +80,7 @@ To digitize your training area you can also work with a [Web Map Service]( https
 DOPs Hessen is now available as WMS and you can add it to your current map.
 ## Additional resources
 * [Digitizing training and test areas](http://wiki.awf.forst.uni-goettingen.de/wiki/index.php/Digitizing_training_and_test_areas) by the [Forest Inventory and Remote Sensing](https://www.uni-goettingen.de/en/67094.html) department at the University of Goettingen (Germany)
-* [Digitizing polygons tutorial](https://docs.qgis.org/3.34/en/docs/training_manual/create_vector_data/create_new_vector.html) in the QGIS 3.16 documentation
+* [Digitizing polygons tutorial](https://docs.qgis.org/3.40/en/docs/training_manual/create_vector_data/create_new_vector.html) in the QGIS 3.40 documentation
 * Read and work through the following [tutorial](https://rspatial.org/raster/rs/5-supclassification.html). 
 
 

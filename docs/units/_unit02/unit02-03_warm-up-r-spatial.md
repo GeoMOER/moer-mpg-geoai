@@ -125,7 +125,6 @@ Visualizing spatial data is fantastic and makes sense -- we want to make maps af
  </figure>
 </div>
 
-For more information, check out [Earth Lab](https://www.earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/vegetation-indices-NDVI-in-R/)
 
 ```r
 # calculate RGB indices 
