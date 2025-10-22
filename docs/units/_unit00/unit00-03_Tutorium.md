@@ -1,6 +1,6 @@
 ---
 title: Tutorium
-published: false
+published: true
 toc: true
 header:
   image: "/assets/images/title.png"
@@ -13,7 +13,7 @@ The tutorium is an open opportunity to raise questions regarding the course, for
 * First tutorium: Friday 25 October 2024
 * Time:  Weekly 16:00 to 18:00 (German time)
 * Place: Room 00A19 + online room (link see ILIAS)
-* Student assistant: Alex (Kluga@students.uni-marburg.de)
+* Student assistant: Lisa
 * Raise only issues that you could not solve using the information provided in the HTML learning environment
 * Do not forget to check the internet for solutions to your problem before joining the tutorium
 * Clearly describe your problem ("it did not work" is not enough!)
