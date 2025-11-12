@@ -89,6 +89,10 @@ The course covers 4 units:
 -->
 
 
+# Preparation and prerequisites
+
+The course assumes basic knowledge and skills in R and geo-information science.
+
 Also check our additional material for teaching basic R skills, 
 which can be found [here](https://geomoer.github.io/moer-base-r/){:target="_blank"}.
 {: .notice--success}
