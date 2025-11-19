@@ -291,8 +291,10 @@ model_input_shape <- c(128, 128)
 subset_ds(
   input_raster = marburg_mask_train,
   model_input_shape = model_input_shape,
-  path = envrmt$path_model_training_data_bui
+  path = envrmt$path_model_training_data_bui,
+  mask=T
 )
+
 
 # subsets for the dop
 subset_ds(
