@@ -192,7 +192,7 @@ To train the U-Net, many smaller images of the same size are needed instead of t
 subset_ds <- function(
     input_raster,
     model_input_shape,
-    mask=FALSE,
+    mask = FALSE,
     path,
     targetname = "") {
   targetSizeX <- model_input_shape[1]
@@ -294,7 +294,6 @@ subset_ds(
   path = envrmt$path_model_training_data_bui,
   mask=T
 )
-
 
 # subsets for the dop
 subset_ds(
