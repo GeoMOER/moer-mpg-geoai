@@ -29,7 +29,7 @@ files <- data.frame(
 )
 
 # split randomly into training and validation (not testing!!) data sets
-set.seed(7)
+tensorflow::set_random_seed(7)
 data <- rsample::initial_split(files, prop = 0.8)
 ```
 
